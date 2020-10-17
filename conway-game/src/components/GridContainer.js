@@ -144,7 +144,8 @@ const GridContainer = () => {
     setIsRunning(false);
   };
   //================ Game Logic ====================//
-  const runGame = () => {
+
+  const runGame1 = () => {
     if (!isRunningRef.current) {
       return;
     }
@@ -186,7 +187,59 @@ const GridContainer = () => {
       setTimeout(runGame, speedRef.current);
     }
   };
+
   //+++++++++++++++++++++++++++++++++++++
+
+  const runGame = () => {
+    if (!isRunningRef.current) {
+      return;
+    }
+    setGeneration(generationRef.current + 1);
+    //---------------------------------------------------
+    setGrid((currentGrid) => {
+      return produce(currentGrid, (nextGrid) => {
+        let cacheI = {};
+        let cacheJ = {};
+        for (let i = 0; i < rowNumber; i++) {
+          for (let j = 0; j < colNumber; j++) {
+            let neighbors = 0;
+            ruleset.forEach(([x, y]) => {
+              if (!cacheI.hasOwnProperty(i + x)) {
+                if (i + x >= 0 && i + x < rowNumber) {
+                  cacheI[i + x] = i + x;
+                }
+              }
+              if (!cacheJ.hasOwnProperty(j + y)) {
+                if (j + y >= 0 && j + y < colNumber) {
+                  cacheJ[j + y] = j + y;
+                }
+              }
+              if (
+                cacheI.hasOwnProperty(i + x) &&
+                cacheJ.hasOwnProperty(j + y)
+              ) {
+                neighbors += currentGrid[cacheI[i + x]][cacheJ[j + y]];
+              }
+            });
+
+            //------------------------------
+            if (neighbors < 2 || neighbors > 3) {
+              nextGrid[i][j] = 0;
+            } else if (currentGrid[i][j] === 0 && neighbors === 3) {
+              nextGrid[i][j] = 1;
+            }
+            //------------------------------
+          }
+        }
+      });
+    });
+
+    //-----------------------------------------------
+
+    if (nextStepRef.current === 1) {
+      setTimeout(runGame, speedRef.current);
+    }
+  };
 
   //++++++++++++++++++++++++++++++++
 
@@ -196,8 +249,8 @@ const GridContainer = () => {
       fluid={true}
       style={{ marginTop: "2rem" }}
     >
-      <Row>
-        <Col xs="12" md="10" xl="6" style={{ marginLeft: "5rem" }}>
+      <Row style={{ display: "flex", justifyContent: "space-around" }}>
+        <Col xs="12" md="10" xl="6" style={{ marginLeft: "0rem" }}>
           <Row style={{ marginLeft: "2rem" }}>
             <div className={classes.root}>
               {/** */}
@@ -241,6 +294,13 @@ const GridContainer = () => {
                 {/** */}
 
                 <div className="low-paper">
+                  <div className="grid-size-span">
+                    Grid Size:{" "}
+                    <span>
+                      {rowNumber}x{colNumber}
+                    </span>
+                  </div>
+
                   <div className="speed">
                     Speed: <span>{parseInt(speed)}</span>
                   </div>
@@ -274,7 +334,7 @@ const GridContainer = () => {
               {/**-------------stop------------ */}
               <Button
                 variant="contained"
-                color="primary"
+                color="secondary"
                 onClick={handleStopChange}
                 style={{ marginRight: "0.5rem", height: "2.8rem" }}
               >
@@ -304,7 +364,7 @@ const GridContainer = () => {
               {/**-------------clear------------ */}
               <Button
                 variant="contained"
-                color="primary"
+                color="secondary"
                 onClick={handleClearChange}
                 style={{ marginRight: "1rem", height: "2.8rem" }}
               >
