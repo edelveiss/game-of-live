@@ -46,6 +46,7 @@ p {
   /* background: #333333; */
 }
 .cell {
+  /* border: solid 0.1px white; */
   border: solid 0.1px #c2c2c2;
   /* border: solid 0.001rem #9fec81; */
   /* border-color: rgba(126, 167, 110, 0.25); */
@@ -61,7 +62,7 @@ p {
   font-weight: 900;
 }
 .speed {
-  width: 30%;
+  width: 50%;
   margin-left: 3rem;
   margin-top: 0.5rem;
 }

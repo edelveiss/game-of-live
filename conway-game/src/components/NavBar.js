@@ -57,10 +57,12 @@ const NavBar = (props) => {
                 style={{
                   textAlign: "center",
                   fontWeight: "bolder",
-                  letterSpacing: "5px",
+                  letterSpacing: "3px",
+                  fontFamily: "Lato",
+                  fontSize: "35px",
                 }}
               >
-                Conway's Game of Life
+                CONWAY'S GAME OF LIFE
               </div>
             </div>
           </Typography>

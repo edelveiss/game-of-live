@@ -145,49 +145,6 @@ const GridContainer = () => {
   };
   //================ Game Logic ====================//
 
-  const runGame1 = () => {
-    if (!isRunningRef.current) {
-      return;
-    }
-    setGeneration(generationRef.current + 1);
-    //---------------------------------------------------
-    setGrid((currentGrid) => {
-      return produce(currentGrid, (nextGrid) => {
-        for (let i = 0; i < rowNumber; i++) {
-          for (let j = 0; j < colNumber; j++) {
-            let neighbors = 0;
-            ruleset.forEach(([x, y]) => {
-              const nextI = i + x;
-              const nextJ = j + y;
-              if (
-                nextI >= 0 &&
-                nextI < rowNumber &&
-                nextJ >= 0 &&
-                nextJ < colNumber
-              ) {
-                neighbors += currentGrid[nextI][nextJ];
-              }
-            });
-
-            //------------------------------
-            if (neighbors < 2 || neighbors > 3) {
-              nextGrid[i][j] = 0;
-            } else if (currentGrid[i][j] === 0 && neighbors === 3) {
-              nextGrid[i][j] = 1;
-            }
-            //------------------------------
-          }
-        }
-      });
-    });
-
-    //-----------------------------------------------
-
-    if (nextStepRef.current === 1) {
-      setTimeout(runGame, speedRef.current);
-    }
-  };
-
   //+++++++++++++++++++++++++++++++++++++
 
   const runGame = () => {
@@ -282,7 +239,12 @@ const GridContainer = () => {
 
                           backgroundColor:
                             grid[i][j] === 1
-                              ? "#f3003d"
+                              ? // ? "#f3003d"
+                                // "#f3004d" pink
+                                // "#3747ac"  blue
+                                // "#9123a7" violet
+                                // "#43a646" green
+                                "#3747ac"
                               : grid[i][j] === 2
                               ? "yellow"
                               : undefined,
@@ -302,7 +264,7 @@ const GridContainer = () => {
                   </div>
 
                   <div className="speed">
-                    Speed: <span>{parseInt(speed)}</span>
+                    Speed: <span>{parseInt(speed)}ms/gen</span>
                   </div>
 
                   <div className="generation">
@@ -320,7 +282,7 @@ const GridContainer = () => {
               <Button
                 className="btn"
                 variant="contained"
-                color="primary"
+                color="secondary"
                 onClick={hangleStartChange}
                 style={{
                   marginRight: "0.5rem",
@@ -334,7 +296,7 @@ const GridContainer = () => {
               {/**-------------stop------------ */}
               <Button
                 variant="contained"
-                color="secondary"
+                color="primary"
                 onClick={handleStopChange}
                 style={{ marginRight: "0.5rem", height: "2.8rem" }}
               >
@@ -344,7 +306,7 @@ const GridContainer = () => {
               {/**-------------next step------------ */}
               <Button
                 variant="contained"
-                color="primary"
+                color="secondary"
                 onClick={handleNextStepChange}
                 style={{ marginRight: "0.5rem", height: "2.8rem" }}
               >
@@ -364,7 +326,7 @@ const GridContainer = () => {
               {/**-------------clear------------ */}
               <Button
                 variant="contained"
-                color="secondary"
+                color="primary"
                 onClick={handleClearChange}
                 style={{ marginRight: "1rem", height: "2.8rem" }}
               >
@@ -458,12 +420,48 @@ const GridContainer = () => {
 
 export default GridContainer;
 
-// <Col xs="4" md="6" xl="1">
-// buttons
-// </Col>
-// <Col xs="12" md="12" xl="4">
-// <GameDescription />
-// </Col>
+// const runGame1 = () => {
+//     if (!isRunningRef.current) {
+//       return;
+//     }
+//     setGeneration(generationRef.current + 1);
+//     //---------------------------------------------------
+//     setGrid((currentGrid) => {
+//       return produce(currentGrid, (nextGrid) => {
+//         for (let i = 0; i < rowNumber; i++) {
+//           for (let j = 0; j < colNumber; j++) {
+//             let neighbors = 0;
+//             ruleset.forEach(([x, y]) => {
+//               const nextI = i + x;
+//               const nextJ = j + y;
+//               if (
+//                 nextI >= 0 &&
+//                 nextI < rowNumber &&
+//                 nextJ >= 0 &&
+//                 nextJ < colNumber
+//               ) {
+//                 neighbors += currentGrid[nextI][nextJ];
+//               }
+//             });
+
+//             //------------------------------
+//             if (neighbors < 2 || neighbors > 3) {
+//               nextGrid[i][j] = 0;
+//             } else if (currentGrid[i][j] === 0 && neighbors === 3) {
+//               nextGrid[i][j] = 1;
+//             }
+//             //------------------------------
+//           }
+//         }
+//       });
+//     });
+
+//     //-----------------------------------------------
+
+//     if (nextStepRef.current === 1) {
+//       setTimeout(runGame, speedRef.current);
+//     }
+//   };
 
 //=======+++++++++++++++++++++++++++++++++++++++++++
 // const runGame1 = () => {
