@@ -47,16 +47,23 @@ export const generateExampleGrid = (example, rowNumber, colNumber) => {
     case "spaceShips": {
       spaceShips.map(
         (element) =>
-          (exampleGrid[element.x + parseInt(rowNumber / 5)][
+          (exampleGrid[element.x + parseInt(rowNumber / 5) - 3][
             element.y + parseInt(colNumber / 5)
           ] = 1)
       );
-      middleSspaceShip.map(
+      spaceShips.map(
         (element) =>
-          (exampleGrid[element.x + parseInt(rowNumber / 5) + 10][
+          (exampleGrid[element.x + parseInt(rowNumber / 5) + 4][
             element.y + parseInt(colNumber / 5)
           ] = 1)
       );
+      spaceShips.map(
+        (element) =>
+          (exampleGrid[element.x + parseInt(rowNumber / 5) + 11][
+            element.y + parseInt(colNumber / 5)
+          ] = 1)
+      );
+
       break;
     }
     case "queen": {

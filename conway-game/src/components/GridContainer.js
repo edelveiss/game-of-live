@@ -198,7 +198,7 @@ const GridContainer = () => {
       style={{ marginTop: "2rem" }}
     >
       <Row style={{ display: "flex", justifyContent: "space-around" }}>
-        <Col xs="12" md="10" xl="6" style={{ marginLeft: "0rem" }}>
+        <Col>
           <Row style={{ marginLeft: "2rem" }}>
             <div className={classes.root}>
               {/** */}
@@ -229,17 +229,13 @@ const GridContainer = () => {
                           height: cellSize,
 
                           backgroundColor:
-                            grid[i][j] === 1
-                              ? cellColor
-                              : //   : grid[i][j] === 2
-                                //   ? "yellow"
-                                undefined,
+                            grid[i][j] === 1 ? cellColor : undefined,
                         }}
                       />
                     ))
                   )}
                 </div>
-                {/** */}
+                {/**---------------low panel------------------------ */}
 
                 <div className="low-paper">
                   <div className="grid-size-span">
@@ -449,10 +445,10 @@ const GridContainer = () => {
               {/**------------------------------------ */}
             </div>
           </Row>
-          {/************************************** */}
+          {/***************** ********************* */}
         </Col>
 
-        <Col xs="12" md="12" xl="5" style={{ width: "40rem" }}>
+        <Col style={{ width: "40rem" }}>
           <GameDescription />
         </Col>
       </Row>

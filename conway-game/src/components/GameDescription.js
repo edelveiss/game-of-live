@@ -2,6 +2,7 @@ import React from "react";
 import surface from "../assets/surface.gif";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
+import { Container, Row, Col } from "reactstrap";
 const GameDescription = () => {
   return (
     <div className="description">
@@ -12,8 +13,10 @@ const GameDescription = () => {
           src={surface}
           alt="Surface"
           style={{
-            width: "208px",
-            height: "170px",
+            width: "14rem",
+            height: "10rem",
+            // width: "20%",
+            // height: "15%",
             marginLeft: "1rem",
             float: "right",
             marginRight: "2rem",
@@ -58,13 +61,21 @@ const GameDescription = () => {
             className="read-more"
             target="_blank"
           >
-            Read More from Wikipedia <i class="fas fa-chevron-right"></i>
+            Read more from Wikipedia <i class="fas fa-chevron-right"></i>
           </a>
         </ul>
       </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
+      <Row
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginRight: "5rem",
+        }}
+      >
+        <Box mt={5}>
+          <Copyright />
+        </Box>
+      </Row>
     </div>
   );
 };
@@ -76,7 +87,6 @@ function Copyright() {
       {"Copyright © Tatiana Zhizhimontova "}
 
       {new Date().getFullYear()}
-      {"."}
     </Typography>
   );
 }

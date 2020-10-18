@@ -1,7 +1,10 @@
-export const MEDIUM_ROW_NUMBER = 28;
-export const MEDIUM_COL_NUMBER = 40;
+// export const MEDIUM_ROW_NUMBER = 28;
+// export const MEDIUM_COL_NUMBER = 40;
+// export const MEDIUM_CELL_SIZE = 20;
 
-export const MEDIUM_CELL_SIZE = 20;
+export const MEDIUM_ROW_NUMBER = 31;
+export const MEDIUM_COL_NUMBER = 44;
+export const MEDIUM_CELL_SIZE = 18.2;
 
 export const LARGE_ROW_NUMBER = 51;
 export const LARGE_COL_NUMBER = 73;
