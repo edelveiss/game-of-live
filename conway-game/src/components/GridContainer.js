@@ -50,9 +50,6 @@ const useStyles = makeStyles((theme) => ({
 let rowNumber = MEDIUM_ROW_NUMBER;
 let colNumber = MEDIUM_COL_NUMBER;
 let cellSize = MEDIUM_CELL_SIZE;
-let t0 = 0;
-let t1 = 0;
-let timerSum = 0;
 
 const GridContainer = () => {
   const classes = useStyles();
@@ -161,7 +158,6 @@ const GridContainer = () => {
     //---------------------------------------------------
     setGrid((currentGrid) => {
       return produce(currentGrid, (nextGrid) => {
-        t0 = performance.now();
         for (let i = 0; i < rowNumber; i++) {
           for (let j = 0; j < colNumber; j++) {
             let neighbors = 0;
@@ -185,7 +181,6 @@ const GridContainer = () => {
             }
           }
         }
-        t1 = performance.now();
       });
     });
 
@@ -204,7 +199,6 @@ const GridContainer = () => {
     //---------------------------------------------------
     setGrid((currentGrid) => {
       return produce(currentGrid, (nextGrid) => {
-        t0 = performance.now();
         for (let i = 0; i < rowNumber; i++) {
           for (let j = 0; j < colNumber; j++) {
             let neighbors = 0;
@@ -245,7 +239,6 @@ const GridContainer = () => {
             }
           }
         }
-        t1 = performance.now();
       });
     });
 
@@ -508,16 +501,6 @@ const GridContainer = () => {
               {/**------------------------------------ */}
             </div>
           </Row>
-          {/*****************Timer ********************* */}
-          <Row style={{ display: "flex" }}>
-            <div className="speed">
-              Timer: <span>{(timerSum += parseInt(t1 - t0))}</span>
-            </div>
-            <div className="speed">
-              Timer: <span>{parseInt(t1 - t0)}</span>
-            </div>
-          </Row>
-          {/************************************** */}
         </Col>
 
         <Col className="col-Description">
