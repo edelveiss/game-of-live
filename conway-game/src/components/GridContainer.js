@@ -50,6 +50,9 @@ const useStyles = makeStyles((theme) => ({
 let rowNumber = MEDIUM_ROW_NUMBER;
 let colNumber = MEDIUM_COL_NUMBER;
 let cellSize = MEDIUM_CELL_SIZE;
+let t0 = 0;
+let t1 = 0;
+let timerSum = 0;
 
 const GridContainer = () => {
   const classes = useStyles();
@@ -149,7 +152,7 @@ const GridContainer = () => {
     setGeneration(0);
     setIsRunning(false);
   };
-  //================ Game Logic ====================//
+  //==1============== Game Logic ====================//
   const runGame = () => {
     if (!isRunningRef.current) {
       return;
@@ -158,6 +161,7 @@ const GridContainer = () => {
     //---------------------------------------------------
     setGrid((currentGrid) => {
       return produce(currentGrid, (nextGrid) => {
+        t0 = performance.now();
         for (let i = 0; i < rowNumber; i++) {
           for (let j = 0; j < colNumber; j++) {
             let neighbors = 0;
@@ -181,6 +185,7 @@ const GridContainer = () => {
             }
           }
         }
+        t1 = performance.now();
       });
     });
 
@@ -189,7 +194,65 @@ const GridContainer = () => {
     }
   };
 
-  //+++++++++++++++++++++++++++++++++++++
+  //++2++++++++++++++++++++++++++++++++++++++++
+  const runGame2 = () => {
+    if (!isRunningRef.current) {
+      return;
+    }
+    setGeneration(generationRef.current + 1);
+
+    //---------------------------------------------------
+    setGrid((currentGrid) => {
+      return produce(currentGrid, (nextGrid) => {
+        t0 = performance.now();
+        for (let i = 0; i < rowNumber; i++) {
+          for (let j = 0; j < colNumber; j++) {
+            let neighbors = 0;
+            //--------------------
+            if (
+              i - 1 >= 0 &&
+              i + 1 < rowNumber &&
+              j - 1 >= 0 &&
+              j + 1 < colNumber &&
+              currentGrid[i - 1][j - 1] === 0 &&
+              currentGrid[i - 1][j] === 0 &&
+              currentGrid[i - 1][j + 1] === 0 &&
+              currentGrid[i][j - 1] === 0 &&
+              currentGrid[i][j + 1] === 0 &&
+              currentGrid[i + 1][j - 1] === 0 &&
+              currentGrid[i + 1][j] === 0 &&
+              currentGrid[i + 1][j + 1] === 0
+            ) {
+              nextGrid[i][j] = 0;
+            } else {
+              //--------------------
+              ruleset.forEach(([x, y]) => {
+                if (
+                  i + x >= 0 &&
+                  i + x < rowNumber &&
+                  j + y >= 0 &&
+                  j + y < colNumber
+                ) {
+                  neighbors += currentGrid[i + x][j + y];
+                }
+              });
+
+              if (neighbors < 2 || neighbors > 3) {
+                nextGrid[i][j] = 0;
+              } else if (currentGrid[i][j] === 0 && neighbors === 3) {
+                nextGrid[i][j] = 1;
+              }
+            }
+          }
+        }
+        t1 = performance.now();
+      });
+    });
+
+    if (nextStepRef.current === 1) {
+      setTimeout(runGame, speedRef.current);
+    }
+  };
 
   return (
     <Container
@@ -198,8 +261,8 @@ const GridContainer = () => {
       style={{ marginTop: "2rem" }}
     >
       <Row style={{ display: "flex", justifyContent: "space-around" }}>
-        <Col>
-          <Row style={{ marginLeft: "2rem" }}>
+        <Col className="col-grid">
+          <Row style={{ marginLeft: "1rem" }}>
             <div className={classes.root}>
               {/** */}
               <Paper elevation={3}>
@@ -445,10 +508,19 @@ const GridContainer = () => {
               {/**------------------------------------ */}
             </div>
           </Row>
-          {/***************** ********************* */}
+          {/*****************Timer ********************* */}
+          <Row style={{ display: "flex" }}>
+            <div className="speed">
+              Timer: <span>{(timerSum += parseInt(t1 - t0))}</span>
+            </div>
+            <div className="speed">
+              Timer: <span>{parseInt(t1 - t0)}</span>
+            </div>
+          </Row>
+          {/************************************** */}
         </Col>
 
-        <Col style={{ width: "40rem" }}>
+        <Col className="col-Description">
           <GameDescription />
         </Col>
       </Row>

@@ -30,7 +30,7 @@ export const createEmptyGrid = (rows, cols) => {
 export const createRandomGrid = (rows, cols) => {
   const arr = [];
   for (let i = 0; i < rows; i++) {
-    arr.push(Array.from(Array(cols), () => (Math.random() > 0.6 ? 1 : 0)));
+    arr.push(Array.from(Array(cols), () => (Math.random() > 0.7 ? 1 : 0)));
   }
 
   return arr;

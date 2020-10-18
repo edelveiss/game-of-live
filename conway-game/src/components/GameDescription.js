@@ -6,7 +6,6 @@ import { Container, Row, Col } from "reactstrap";
 const GameDescription = () => {
   return (
     <div className="description">
-      <br></br>
       <h2>About Game of Life</h2>
       <p>
         <img
@@ -33,7 +32,7 @@ const GameDescription = () => {
         after a finite number of generations; and spaceships, which translate
         themselves across the grid.
       </p>
-      <br></br>
+
       <h2> Game of Life Rules:</h2>
       <div className="ul-rules">
         <ul>
@@ -70,6 +69,7 @@ const GameDescription = () => {
           display: "flex",
           justifyContent: "flex-end",
           marginRight: "5rem",
+          paddingBottom: "1rem",
         }}
       >
         <Box mt={5}>

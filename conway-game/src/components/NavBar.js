@@ -55,6 +55,7 @@ const NavBar = (props) => {
               </div>
               <div
                 style={{
+                  marginLeft: "1rem",
                   textAlign: "center",
                   fontWeight: "bolder",
                   letterSpacing: "3px",

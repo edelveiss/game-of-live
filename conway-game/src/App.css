@@ -72,6 +72,33 @@ span {
   display: flex;
   justify-content: flex-start;
 }
+/* .col-grid{
+
+} */
+.col-Description {
+  width: 40rem;
+}
+@media only screen and (max-width: 800px) {
+  .col-grid {
+    width: 90%;
+  }
+  .col-Description {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .col-grid {
+    width: 90%;
+  }
+  .col-Description {
+    width: 80%;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .col-Description {
+    width: 80%;
+  }
+}
 .description {
   padding-left: 0;
 }
