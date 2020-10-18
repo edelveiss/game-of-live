@@ -262,7 +262,7 @@ const GridContainer = () => {
             </div>
           </Row>
           {/******************************* */}
-          <Row style={{ marginLeft: "0.6rem" }}>
+          <Row style={{ marginLeft: "1rem" }}>
             <div className="btns">
               {/**-------------start ------------ */}
               <Button
