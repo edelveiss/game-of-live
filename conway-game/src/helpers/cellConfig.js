@@ -1,13 +1,3 @@
-export const ruleset = [
-  [1, 1],
-  [1, 0],
-  [0, 1],
-  [1, -1],
-  [-1, 1],
-  [-1, -1],
-  [0, -1],
-  [-1, 0],
-];
 export const MEDIUM_ROW_NUMBER = 28;
 export const MEDIUM_COL_NUMBER = 40;
 
@@ -20,6 +10,17 @@ export const LARGE_CELL_SIZE = 11;
 export const SMALL_ROW_NUMBER = 22;
 export const SMALL_COL_NUMBER = 31;
 export const SMALL_CELL_SIZE = 25.73;
+
+export const ruleset = [
+  [1, 1],
+  [1, 0],
+  [0, 1],
+  [1, -1],
+  [-1, 1],
+  [-1, -1],
+  [0, -1],
+  [-1, 0],
+];
 
 export const oscillator = [
   { x: 0, y: 1 },
@@ -59,6 +60,19 @@ export const spaceShips = [
   { x: 3, y: 2 },
   { x: 3, y: 1 },
   { x: 2, y: 0 },
+];
+export const middleSspaceShip = [
+  { x: 1, y: 0 },
+  { x: 3, y: 0 },
+  { x: 4, y: 1 },
+  { x: 4, y: 2 },
+  { x: 4, y: 3 },
+  { x: 4, y: 4 },
+  { x: 4, y: 5 },
+  { x: 3, y: 5 },
+  { x: 2, y: 5 },
+  { x: 1, y: 4 },
+  { x: 0, y: 2 },
 ];
 export const infiniteRepeat = [
   { x: 1, y: 1 },

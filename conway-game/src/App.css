@@ -3,11 +3,11 @@
 }
 p {
   text-align: left;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 .ul-rules {
   text-align: left;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 .nav-bar {
   display: flex;
@@ -27,31 +27,16 @@ p {
   justify-content: space-around;
 }
 
-/* .mediumGrid {
-  display: grid;
-  grid-template-columns: repeat(40, 25px);
-  grid-template-rows: repeat(28, 25px);
+.cell-color {
+  width: 20px;
+  height: 20px;
 }
-.largeGrid {
-  display: grid;
-  grid-template-columns: repeat(73, 20px);
-  grid-template-rows: repeat(51, 20px);
-} */
 .grid-container {
   display: grid;
   background: #f1f1f1;
-  /* background: #aca8a8; */
-  /* background: #726e6e; */
-  /* background: #f1f1f1; */
-  /* background: #333333; */
 }
 .cell {
-  /* border: solid 0.1px white; */
   border: solid 0.1px #c2c2c2;
-  /* border: solid 0.001rem #9fec81; */
-  /* border-color: rgba(126, 167, 110, 0.25); */
-  /* border: rgb(16, 99, 181, 1.5); */
-  /* border: 1px solid rgba(122, 116, 116, 0.502); */
 }
 .low-paper {
   display: flex;
@@ -76,10 +61,7 @@ p {
   margin-left: 3rem;
   margin-top: 0.5rem;
 }
-/* .block-span {
-  width: 20px;
-  display: inline-block;
-} */
+
 span {
   width: 40px;
   display: inline-block;
@@ -112,10 +94,6 @@ span {
 }
 .row-style {
   display: flex;
-  /* width: 30px;
-  height: 30px; */
-  /* border: white solid 1px;
-  background: mediumvioletred; */
 }
 .cell-style-size {
   width: 25px;
@@ -123,18 +101,27 @@ span {
 }
 .cell-style {
   border: white solid 1px;
-  /* 3 green */
+
   background: #0935a3;
-  /* 2 green
-  background: #32e00f; */
-  /* 1 violet */
-  /* background: #a10367; */
 }
 .center-cell {
-  /* 3 green */
   background: #9edd7f;
-  /* 2 green */
-  /* background: #ec350c; */
-  /* 1 violet */
-  /* background: #0cec39; */
+}
+.read-more {
+  padding-top: 1%;
+  color: #3747ac;
+
+  font-weight: 300;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+a:hover {
+  font-size: 1.1rem;
+}
+i:hover {
+  margin-left: 10px;
+}
+.cell:hover {
+  opacity: 0.7;
+  background: #40f1d4;
 }

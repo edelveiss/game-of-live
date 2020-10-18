@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 
 import pulsar from "../assets/pulsar.gif";
 import conway from "../assets/conway.jpeg";
+import surface from "../assets/surface.gif";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,9 +34,8 @@ const NavBar = (props) => {
                     src={conway}
                     alt="conway"
                     style={{
-                      // border: "1px solid #ddd",
                       borderRadius: "4px",
-                      // padding: "5px",
+
                       width: "90px",
                     }}
                   />
@@ -58,8 +58,9 @@ const NavBar = (props) => {
                   textAlign: "center",
                   fontWeight: "bolder",
                   letterSpacing: "3px",
-                  fontFamily: "Lato",
-                  fontSize: "35px",
+                  // fontFamily: "Lato",
+                  fontSize: "40px",
+                  fontFamily: "Righteous",
                 }}
               >
                 CONWAY'S GAME OF LIFE

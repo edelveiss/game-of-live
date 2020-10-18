@@ -36,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
       width: theme.spacing(100),
       height: theme.spacing(74),
-      // height: theme.spacing(70),
     },
     formControl: {
       margin: theme.spacing(1),
@@ -63,6 +62,7 @@ const GridContainer = () => {
   const [gridSize, setGridSize] = useState("Medium");
   const [gameExamples, setGameExamples] = useState("preset");
   const [nextStep] = useState(1);
+  const [cellColor, setCellColor] = useState("#3747ac");
 
   const speedRef = useRef(speed);
   speedRef.current = speed;
@@ -96,6 +96,12 @@ const GridContainer = () => {
   const handleSpeedChange = (e, value) => {
     setSpeed(100 * value);
     speedRef.current = 100 * value;
+  };
+
+  //================handleCellColorChange====================//
+  const handleCellColorChange = (e) => {
+    e.preventDefault();
+    setCellColor(e.target.value);
   };
   //================handleGridSizeChange====================//
   const handleGridSizeChange = (e) => {
@@ -144,9 +150,6 @@ const GridContainer = () => {
     setIsRunning(false);
   };
   //================ Game Logic ====================//
-
-  //+++++++++++++++++++++++++++++++++++++
-
   const runGame = () => {
     if (!isRunningRef.current) {
       return;
@@ -155,50 +158,38 @@ const GridContainer = () => {
     //---------------------------------------------------
     setGrid((currentGrid) => {
       return produce(currentGrid, (nextGrid) => {
-        let cacheI = {};
-        let cacheJ = {};
         for (let i = 0; i < rowNumber; i++) {
           for (let j = 0; j < colNumber; j++) {
             let neighbors = 0;
             ruleset.forEach(([x, y]) => {
-              if (!cacheI.hasOwnProperty(i + x)) {
-                if (i + x >= 0 && i + x < rowNumber) {
-                  cacheI[i + x] = i + x;
-                }
-              }
-              if (!cacheJ.hasOwnProperty(j + y)) {
-                if (j + y >= 0 && j + y < colNumber) {
-                  cacheJ[j + y] = j + y;
-                }
-              }
+              const nextI = i + x;
+              const nextJ = j + y;
               if (
-                cacheI.hasOwnProperty(i + x) &&
-                cacheJ.hasOwnProperty(j + y)
+                nextI >= 0 &&
+                nextI < rowNumber &&
+                nextJ >= 0 &&
+                nextJ < colNumber
               ) {
-                neighbors += currentGrid[cacheI[i + x]][cacheJ[j + y]];
+                neighbors += currentGrid[nextI][nextJ];
               }
             });
 
-            //------------------------------
             if (neighbors < 2 || neighbors > 3) {
               nextGrid[i][j] = 0;
             } else if (currentGrid[i][j] === 0 && neighbors === 3) {
               nextGrid[i][j] = 1;
             }
-            //------------------------------
           }
         }
       });
     });
-
-    //-----------------------------------------------
 
     if (nextStepRef.current === 1) {
       setTimeout(runGame, speedRef.current);
     }
   };
 
-  //++++++++++++++++++++++++++++++++
+  //+++++++++++++++++++++++++++++++++++++
 
   return (
     <Container
@@ -239,15 +230,10 @@ const GridContainer = () => {
 
                           backgroundColor:
                             grid[i][j] === 1
-                              ? // ? "#f3003d"
-                                // "#f3004d" pink
-                                // "#3747ac"  blue
-                                // "#9123a7" violet
-                                // "#43a646" green
-                                "#3747ac"
-                              : grid[i][j] === 2
-                              ? "yellow"
-                              : undefined,
+                              ? cellColor
+                              : //   : grid[i][j] === 2
+                                //   ? "yellow"
+                                undefined,
                         }}
                       />
                     ))
@@ -276,7 +262,7 @@ const GridContainer = () => {
             </div>
           </Row>
           {/******************************* */}
-          <Row style={{ marginLeft: "2rem" }}>
+          <Row style={{ marginLeft: "0.6rem" }}>
             <div className="btns">
               {/**-------------start ------------ */}
               <Button
@@ -285,9 +271,9 @@ const GridContainer = () => {
                 color="secondary"
                 onClick={hangleStartChange}
                 style={{
-                  marginRight: "0.5rem",
+                  marginRight: "0.4rem",
                   color: "white",
-                  height: "2.8rem",
+                  height: "2.7rem",
                 }}
               >
                 start
@@ -298,7 +284,7 @@ const GridContainer = () => {
                 variant="contained"
                 color="primary"
                 onClick={handleStopChange}
-                style={{ marginRight: "0.5rem", height: "2.8rem" }}
+                style={{ marginRight: "0.4rem", height: "2.7rem" }}
               >
                 stop
               </Button>
@@ -308,7 +294,7 @@ const GridContainer = () => {
                 variant="contained"
                 color="secondary"
                 onClick={handleNextStepChange}
-                style={{ marginRight: "0.5rem", height: "2.8rem" }}
+                style={{ marginRight: "0.4rem", height: "2.7rem" }}
               >
                 next
               </Button>
@@ -318,7 +304,7 @@ const GridContainer = () => {
                 variant="contained"
                 color="primary"
                 onClick={handleRandomGridChange}
-                style={{ marginRight: "0.5rem", height: "2.8rem" }}
+                style={{ marginRight: "0.4rem", height: "2.7rem" }}
               >
                 random
               </Button>
@@ -328,14 +314,14 @@ const GridContainer = () => {
                 variant="contained"
                 color="primary"
                 onClick={handleClearChange}
-                style={{ marginRight: "1rem", height: "2.8rem" }}
+                style={{ marginRight: "0.7rem", height: "2.7rem" }}
               >
                 clear
               </Button>
               {/**---------------------Speed------------------------------ */}
-              <div style={{ width: "6rem", marginRight: "1rem" }}>
+              <div style={{ width: "6rem", marginRight: "0.5rem" }}>
                 <Typography id="speed-slider" gutterBottom>
-                  Speed
+                  fast &nbsp; &nbsp; &nbsp; slow
                 </Typography>
                 <Slider
                   defaultValue={1}
@@ -353,10 +339,10 @@ const GridContainer = () => {
               <FormControl
                 variant="outlined"
                 className={classes.formControl}
-                style={{ marginRight: "0.5rem", widht: "3rem" }}
+                style={{ marginRight: "0.4rem", widht: "4rem" }}
               >
                 <InputLabel id="demo-simple-select-outlined-label">
-                  Grid Size
+                  GrSize
                 </InputLabel>
                 <Select
                   labelId="demo-simple-select-outlined-label"
@@ -375,7 +361,7 @@ const GridContainer = () => {
               <FormControl
                 variant="outlined"
                 className={classes.formControl}
-                style={{ marginRight: "1rem", widht: "3rem" }}
+                style={{ marginRight: "0.4rem", widht: "3rem" }}
               >
                 <InputLabel id="examples-select-outlined-label">
                   Preset
@@ -401,15 +387,71 @@ const GridContainer = () => {
               </FormControl>
 
               {/**-------------------------------------------------- */}
+              {/**------------------Cell color-------------------------------- */}
+              <FormControl
+                variant="outlined"
+                className={classes.formControl}
+                style={{ widht: "1rem" }}
+              >
+                <InputLabel id="cell-simple-select-outlined-label">
+                  CellColor
+                </InputLabel>
+                <Select
+                  labelId="cell-simple-select-outlined-label"
+                  id="cell-select-outlined"
+                  value={cellColor}
+                  onChange={handleCellColorChange}
+                  label="cell-color"
+                >
+                  <MenuItem value={"#f3004d"}>
+                    <div
+                      className="cell-color"
+                      style={{
+                        background: "#f3004d",
+                      }}
+                    ></div>
+                  </MenuItem>
+                  <MenuItem value={"#3747ac"}>
+                    <div
+                      className="cell-color"
+                      style={{
+                        background: "#3747ac",
+                      }}
+                    ></div>
+                  </MenuItem>
+                  <MenuItem value={"#43a646"}>
+                    <div
+                      className="cell-color"
+                      style={{
+                        background: "#43a646",
+                      }}
+                    ></div>
+                  </MenuItem>
+                  <MenuItem value={"#9123a7"}>
+                    <div
+                      className="cell-color"
+                      style={{
+                        background: "#9123a7",
+                      }}
+                    ></div>
+                  </MenuItem>
+                  <MenuItem value={"#0de7b4"}>
+                    <div
+                      className="cell-color"
+                      style={{
+                        background: "#0de7b4",
+                      }}
+                    ></div>
+                  </MenuItem>
+                </Select>
+              </FormControl>
+
+              {/**------------------------------------ */}
             </div>
           </Row>
           {/************************************** */}
         </Col>
-        {/** 
-        <Col xs="12" md="2" xl="1" style={{ width: "5rem" }}>
-          <GridStyling />
-        </Col>
-*/}
+
         <Col xs="12" md="12" xl="5" style={{ width: "40rem" }}>
           <GameDescription />
         </Col>
@@ -425,124 +467,49 @@ export default GridContainer;
 //       return;
 //     }
 //     setGeneration(generationRef.current + 1);
-//     //---------------------------------------------------
+
 //     setGrid((currentGrid) => {
 //       return produce(currentGrid, (nextGrid) => {
+//         let cacheI = {};
+//         let cacheJ = {};
 //         for (let i = 0; i < rowNumber; i++) {
 //           for (let j = 0; j < colNumber; j++) {
 //             let neighbors = 0;
 //             ruleset.forEach(([x, y]) => {
-//               const nextI = i + x;
-//               const nextJ = j + y;
 //               if (
-//                 nextI >= 0 &&
-//                 nextI < rowNumber &&
-//                 nextJ >= 0 &&
-//                 nextJ < colNumber
+//                 !cacheI.hasOwnProperty(i + x) &&
+//                 i + x >= 0 &&
+//                 i + x < rowNumber
 //               ) {
-//                 neighbors += currentGrid[nextI][nextJ];
+//                 cacheI[i + x] = i + x;
+//               }
+//               if (
+//                 !cacheJ.hasOwnProperty(j + y) &&
+//                 j + y >= 0 &&
+//                 j + y < colNumber
+//               ) {
+//                 cacheJ[j + y] = j + y;
+//               }
+
+//               if (
+//                 cacheI.hasOwnProperty(i + x) &&
+//                 cacheJ.hasOwnProperty(j + y)
+//               ) {
+//                 neighbors += currentGrid[cacheI[i + x]][cacheJ[j + y]];
 //               }
 //             });
 
-//             //------------------------------
 //             if (neighbors < 2 || neighbors > 3) {
 //               nextGrid[i][j] = 0;
 //             } else if (currentGrid[i][j] === 0 && neighbors === 3) {
 //               nextGrid[i][j] = 1;
 //             }
-//             //------------------------------
 //           }
 //         }
 //       });
 //     });
 
-//     //-----------------------------------------------
-
 //     if (nextStepRef.current === 1) {
 //       setTimeout(runGame, speedRef.current);
 //     }
 //   };
-
-//=======+++++++++++++++++++++++++++++++++++++++++++
-// const runGame1 = () => {
-//   if (!isRunningRef.current) {
-//     return;
-//   }
-//   setGeneration(generationRef.current + 1);
-//   //---------------------------------------------------
-//   setGrid(
-//     gameAlgorithm(grid, rowNumber, colNumber)
-//     //   (currentGrid) => {
-//     //   return produce(currentGrid, (nextGrid) => {
-//     //     for (let i = 0; i < rowNumber; i++) {
-//     //       for (let j = 0; j < colNumber; j++) {
-//     //         let neighbors = 0;
-//     //         ruleset.forEach(([x, y]) => {
-//     //           const nextI = i + x;
-//     //           const nextJ = j + y;
-//     //           if (
-//     //             nextI >= 0 &&
-//     //             nextI < rowNumber &&
-//     //             nextJ >= 0 &&
-//     //             nextJ < colNumber
-//     //           ) {
-//     //             neighbors += currentGrid[nextI][nextJ];
-//     //           }
-//     //         });
-
-//     //         //------------------------------
-//     //         if (neighbors < 2 || neighbors > 3) {
-//     //           nextGrid[i][j] = 0;
-//     //         } else if (currentGrid[i][j] === 0 && neighbors === 3) {
-//     //           nextGrid[i][j] = 1;
-//     //         }
-//     //         //------------------------------
-//     //       }
-//     //     }
-//     //   });
-//     // }
-//   );
-
-//   //-----------------------------------------------
-
-//   if (nextStepRef.current === 1) {
-//     setTimeout(runGame, speedRef.current);
-//   }
-// };
-//++++++++++++++++++++++++++++++++++++++++++++++++++
-
-//-------------------------------------------
-// if (currentGrid[i][j] === 1 || currentGrid[i][j] === 2) {
-//   console.log("neighbors", neighbors, `currentGrid[${i}][${j}] =`, currentGrid[i][j]);
-// }
-//-------------------------------
-// if (neighbors >= 4 || neighbors <= 1) {
-//   nextGrid[i][j] = 0;
-// } else if (neighbors === 2) {
-//   currentGrid[i][j] === 2 || currentGrid[i][j] === 1
-//     ? (nextGrid[i][j] = 1)
-//     : (nextGrid[i][j] = 0);
-// } else if (neighbors === 3) {
-//   currentGrid[i][j] === 2 || currentGrid[i][j] === 1
-//     ? (nextGrid[i][j] = 1)
-//     : (nextGrid[i][j] = 2);
-// } else if (currentGrid[i][j] === 2) {
-//   nextGrid[i][j] = 1;
-// }
-//------------------------------
-// if ((g[i][j] === 1 || g[i][j] === 2) && neighbors < 2) {
-//   nextGrid[i][j] = 0;
-// }
-// else if (
-//   ((g[i][j] === 1 || g[i][j] === 2) && neighbors === 3) ||
-//   ((g[i][j] === 1 || g[i][j] === 2) && neighbors === 2)
-// ) {
-//   nextGrid[i][j] = 1;
-// } else if ((g[i][j] === 1 || g[i][j] === 2) && neighbors > 3) {
-//   nextGrid[i][j] = 0;
-// } else if (g[i][j] === 0 && neighbors === 3) {
-//   nextGrid[i][j] = 2;
-// } else if (g[i][j] === 2) {
-//   nextGrid[i][j] = 1;
-// }
-//------------------------------

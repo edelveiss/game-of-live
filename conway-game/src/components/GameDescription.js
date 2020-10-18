@@ -1,10 +1,24 @@
 import React from "react";
+import surface from "../assets/surface.gif";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
 const GameDescription = () => {
   return (
     <div className="description">
       <br></br>
       <h2>About Game of Life</h2>
       <p>
+        <img
+          src={surface}
+          alt="Surface"
+          style={{
+            width: "208px",
+            height: "170px",
+            marginLeft: "1rem",
+            float: "right",
+            marginRight: "2rem",
+          }}
+        />
         The Game of Life is a type of cellular automaton, created by British
         mathematician John Conway in 1970. It is a zero-player game, meaning
         that its evolution is determined by its initial state, requiring no
@@ -21,24 +35,48 @@ const GameDescription = () => {
       <div className="ul-rules">
         <ul>
           <li>
-            Any live cell with fewer than two live neighbours dies, as if by
-            underpopulation.
+            Any live cell with <strong>fewer than two</strong> live neighbours
+            <strong> dies</strong>.
           </li>
           <li>
-            Any live cell with two or three live neighbours lives on to the next
+            Any live cell with{" "}
+            <strong>two or three live neighbours lives</strong> on to the next
             generation.
           </li>
           <li>
-            Any live cell with more than three live neighbours dies, as if by
-            overpopulation.
+            Any live cell with <strong>more than three</strong> live neighbours{" "}
+            <strong>dies</strong>.
           </li>
           <li>
-            Any dead cell with exactly three live neighbours becomes a live
-            cell, as if by reproduction.
+            Any <strong>dead</strong> cell with exactly{" "}
+            <strong>three live</strong> neighbours becomes a{" "}
+            <strong>live </strong>
+            cell.
           </li>
+          <a
+            href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns"
+            className="read-more"
+            target="_blank"
+          >
+            Read More from Wikipedia <i class="fas fa-chevron-right"></i>
+          </a>
         </ul>
       </div>
+      <Box mt={5}>
+        <Copyright />
+      </Box>
     </div>
   );
 };
 export default GameDescription;
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © Tatiana Zhizhimontova "}
+
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}

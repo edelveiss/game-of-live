@@ -7,6 +7,7 @@ import {
   breed1,
   queen,
   spaceShips,
+  middleSspaceShip,
   SMALL_ROW_NUMBER,
   SMALL_COL_NUMBER,
   SMALL_CELL_SIZE,
@@ -37,9 +38,6 @@ export const createRandomGrid = (rows, cols) => {
 
 export const generateExampleGrid = (example, rowNumber, colNumber) => {
   let exampleGrid = [];
-  //   for (let i = 0; i < rowNumber; i++) {
-  //     exampleGrid.push(Array.from(Array(colNumber), () => 0));
-  //   }
   exampleGrid = createEmptyGrid(rowNumber, colNumber);
 
   switch (example) {
@@ -53,7 +51,7 @@ export const generateExampleGrid = (example, rowNumber, colNumber) => {
             element.y + parseInt(colNumber / 5)
           ] = 1)
       );
-      spaceShips.map(
+      middleSspaceShip.map(
         (element) =>
           (exampleGrid[element.x + parseInt(rowNumber / 5) + 10][
             element.y + parseInt(colNumber / 5)
