@@ -3,28 +3,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-
 import pulsar from "../assets/pulsar.gif";
 import conway from "../assets/conway.jpeg";
-import surface from "../assets/surface.gif";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
-}));
 
 const NavBar = (props) => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" className="nav-bar">
         <Toolbar>
           <Typography variant="h3" className={classes.title}>
             <div className="nav-bar">
@@ -53,19 +39,7 @@ const NavBar = (props) => {
                   />
                 </div>
               </div>
-              <div
-                style={{
-                  marginLeft: "1rem",
-                  textAlign: "center",
-                  fontWeight: "bolder",
-                  letterSpacing: "3px",
-                  // fontFamily: "Lato",
-                  fontSize: "40px",
-                  fontFamily: "Righteous",
-                }}
-              >
-                CONWAY'S GAME OF LIFE
-              </div>
+              <div className="title">CONWAY'S GAME OF LIFE</div>
             </div>
           </Typography>
         </Toolbar>
@@ -75,3 +49,15 @@ const NavBar = (props) => {
 };
 
 export default NavBar;
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));

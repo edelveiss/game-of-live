@@ -1,4 +1,5 @@
 import {
+  //------------------game samples-------------------------------------
   oscillator,
   infiniteRepeat,
   acorn,
@@ -7,7 +8,7 @@ import {
   breed1,
   queen,
   spaceShips,
-  middleSspaceShip,
+  //------------------grid size constants-------------------------------------
   SMALL_ROW_NUMBER,
   SMALL_COL_NUMBER,
   SMALL_CELL_SIZE,
@@ -18,7 +19,7 @@ import {
   LARGE_COL_NUMBER,
   LARGE_CELL_SIZE,
 } from "./cellConfig";
-
+//------------------createEmptyGrid-------------------------------------
 export const createEmptyGrid = (rows, cols) => {
   const arr = [];
   for (let i = 0; i < rows; i++) {
@@ -27,6 +28,7 @@ export const createEmptyGrid = (rows, cols) => {
 
   return arr;
 };
+//------------------createRandomGrid-------------------------------------
 export const createRandomGrid = (rows, cols) => {
   const arr = [];
   for (let i = 0; i < rows; i++) {
@@ -35,7 +37,7 @@ export const createRandomGrid = (rows, cols) => {
 
   return arr;
 };
-
+//------------------generateExampleGrid-------------------------------------
 export const generateExampleGrid = (example, rowNumber, colNumber) => {
   let exampleGrid = [];
   exampleGrid = createEmptyGrid(rowNumber, colNumber);
@@ -44,6 +46,7 @@ export const generateExampleGrid = (example, rowNumber, colNumber) => {
     case "preset": {
       break;
     }
+    //------------------spaceShips-------------------
     case "spaceShips": {
       spaceShips.map(
         (element) =>
@@ -66,6 +69,7 @@ export const generateExampleGrid = (example, rowNumber, colNumber) => {
 
       break;
     }
+    //------------------queen-------------------
     case "queen": {
       queen.map(
         (element) =>
@@ -75,6 +79,7 @@ export const generateExampleGrid = (example, rowNumber, colNumber) => {
       );
       break;
     }
+    //------------------acorn-------------------
     case "acorn": {
       acorn.map(
         (element) =>
@@ -84,6 +89,7 @@ export const generateExampleGrid = (example, rowNumber, colNumber) => {
       );
       break;
     }
+    //------------------gliderGun-------------------
     case "gliderGun": {
       gliderGun.map(
         (element) =>
@@ -93,6 +99,7 @@ export const generateExampleGrid = (example, rowNumber, colNumber) => {
       );
       break;
     }
+    //------------------breed-------------------
     case "breed": {
       breed.map(
         (element) =>
@@ -102,6 +109,7 @@ export const generateExampleGrid = (example, rowNumber, colNumber) => {
       );
       break;
     }
+    //------------------oscillator-------------------
     case "oscillator": {
       oscillator.map(
         (element) =>
@@ -111,6 +119,7 @@ export const generateExampleGrid = (example, rowNumber, colNumber) => {
       );
       break;
     }
+    //------------------infiniteRepeat-------------------
     case "infiniteRepeat": {
       infiniteRepeat.map(
         (element) =>
@@ -120,6 +129,7 @@ export const generateExampleGrid = (example, rowNumber, colNumber) => {
       );
       break;
     }
+    //------------------breed1-------------------
     case "breed1": {
       breed1.map(
         (element) =>
@@ -136,7 +146,7 @@ export const generateExampleGrid = (example, rowNumber, colNumber) => {
   return exampleGrid;
 };
 
-//-------------------------------------------------------
+//------------------gridSizeChange-------------------------------------
 export function gridSizeChange(newGridSize) {
   let newSizeArr = [];
   switch (newGridSize) {

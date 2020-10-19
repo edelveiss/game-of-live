@@ -1,7 +1,3 @@
-// export const MEDIUM_ROW_NUMBER = 28;
-// export const MEDIUM_COL_NUMBER = 40;
-// export const MEDIUM_CELL_SIZE = 20;
-
 export const MEDIUM_ROW_NUMBER = 31;
 export const MEDIUM_COL_NUMBER = 44;
 export const MEDIUM_CELL_SIZE = 18.2;
@@ -10,9 +6,9 @@ export const LARGE_ROW_NUMBER = 51;
 export const LARGE_COL_NUMBER = 73;
 export const LARGE_CELL_SIZE = 11;
 
-export const SMALL_ROW_NUMBER = 22;
-export const SMALL_COL_NUMBER = 31;
-export const SMALL_CELL_SIZE = 25.73;
+export const SMALL_ROW_NUMBER = 25;
+export const SMALL_COL_NUMBER = 35;
+export const SMALL_CELL_SIZE = 22.8;
 
 export const ruleset = [
   [1, 1],
@@ -110,7 +106,7 @@ export const breed1 = [
   { x: 1, y: 18 },
   { x: 1, y: 19 },
   { x: 1, y: 20 },
-  //------------------------
+
   { x: 2, y: 1 },
   { x: 2, y: 2 },
   { x: 2, y: 3 },

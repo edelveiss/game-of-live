@@ -3,11 +3,11 @@
 }
 p {
   text-align: left;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 .ul-rules {
   text-align: left;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 .nav-bar {
   display: flex;
@@ -67,41 +67,20 @@ span {
   display: inline-block;
 }
 .btns {
-  margin-top: 1rem;
-  margin-left: 1rem;
+  margin-top: 1.5rem;
+  margin-left: 0.3rem;
   display: flex;
   justify-content: flex-start;
 }
-/* .col-grid{
 
-} */
 .col-Description {
   width: 40rem;
 }
-@media only screen and (max-width: 800px) {
-  .col-grid {
-    width: 90%;
-  }
-  .col-Description {
-    width: 80%;
-  }
-}
-@media only screen and (max-width: 600px) {
-  .col-grid {
-    width: 90%;
-  }
-  .col-Description {
-    width: 80%;
-  }
-}
-@media only screen and (max-width: 350px) {
-  .col-Description {
-    width: 80%;
-  }
-}
+
 .description {
   padding-left: 0;
 }
+
 .smallGrid {
   display: grid;
   grid-template-columns: repeat(3, 30px);
@@ -150,5 +129,73 @@ i:hover {
 }
 .cell:hover {
   opacity: 0.7;
-  background: #40f1d4;
+  background: #eb93df;
+}
+.title {
+  margin-left: 3rem;
+  text-align: center;
+  font-weight: bolder;
+  letter-spacing: 3px;
+  font-size: 40px;
+  font-family: Righteous;
+}
+.surface {
+  display: flex;
+  flex-direction: column;
+  background: #f7f8f9;
+  align-items: center;
+  margin-left: 1rem;
+  float: right;
+  margin-right: 2rem;
+  width: 14.6rem;
+  height: 13.1rem;
+  border: 1px solid #c1c2cb;
+  margin-bottom: 0.4rem;
+}
+.surface img {
+  width: 14rem;
+  height: 10rem;
+  margin-top: 0.35rem;
+}
+.knot {
+  font-family: sans-serif;
+  font-weight: 400;
+  width: 14rem;
+  font-size: 0.8rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+@media only screen and (max-width: 800px) {
+  .themed-container {
+    width: 90%;
+  }
+  .col-grid {
+    width: 90%;
+  }
+  .col-Description {
+    width: 80%;
+    margin-left: 2rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .col-grid {
+    width: 90%;
+  }
+  .col-Description {
+    width: 80%;
+    margin-left: 2rem;
+  }
+  .title {
+    font-size: 2rem;
+  }
+}
+@media only screen and (max-width: 350px) {
+  .col-Description {
+    width: 80%;
+  }
 }

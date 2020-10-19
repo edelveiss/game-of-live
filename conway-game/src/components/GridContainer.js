@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import produce from "immer";
 import { Container, Row, Col } from "reactstrap";
 import GameDescription from "./GameDescription";
-
 import {
   ruleset,
   MEDIUM_ROW_NUMBER,
@@ -16,36 +15,14 @@ import {
   createEmptyGrid,
 } from "../helpers/gridCreation";
 import Button from "@material-ui/core/Button";
-
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
 import Slider from "@material-ui/core/Slider";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-
-    flexWrap: "wrap",
-    "& > *": {
-      margin: theme.spacing(1),
-      width: theme.spacing(100),
-      height: theme.spacing(74),
-    },
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-  },
-}));
 
 let rowNumber = MEDIUM_ROW_NUMBER;
 let colNumber = MEDIUM_COL_NUMBER;
@@ -149,28 +126,38 @@ const GridContainer = () => {
     setGeneration(0);
     setIsRunning(false);
   };
-  //==1============== Game Logic ====================//
+  //3================ Game Logic ====================//
+
   const runGame = () => {
     if (!isRunningRef.current) {
       return;
     }
     setGeneration(generationRef.current + 1);
-    //---------------------------------------------------
+
     setGrid((currentGrid) => {
       return produce(currentGrid, (nextGrid) => {
+        let cacheI = {};
+        let cacheJ = {};
+
         for (let i = 0; i < rowNumber; i++) {
           for (let j = 0; j < colNumber; j++) {
             let neighbors = 0;
             ruleset.forEach(([x, y]) => {
-              const nextI = i + x;
-              const nextJ = j + y;
-              if (
-                nextI >= 0 &&
-                nextI < rowNumber &&
-                nextJ >= 0 &&
-                nextJ < colNumber
-              ) {
-                neighbors += currentGrid[nextI][nextJ];
+              let ruleSetI = i + x;
+              let ruleSetY = j + y;
+
+              if (!cacheI[ruleSetI]) {
+                if (ruleSetI >= 0 && ruleSetI < rowNumber) {
+                  cacheI[ruleSetI] = ruleSetI;
+                }
+              } else if (!cacheJ[ruleSetY]) {
+                if (ruleSetY >= 0 && ruleSetY < colNumber) {
+                  cacheJ[ruleSetY] = ruleSetY;
+                }
+              }
+
+              if (cacheI[ruleSetI] && cacheJ[ruleSetY]) {
+                neighbors += currentGrid[cacheI[i + x]][cacheJ[j + y]];
               }
             });
 
@@ -189,69 +176,11 @@ const GridContainer = () => {
     }
   };
 
-  //++2++++++++++++++++++++++++++++++++++++++++
-  const runGame2 = () => {
-    if (!isRunningRef.current) {
-      return;
-    }
-    setGeneration(generationRef.current + 1);
-
-    //---------------------------------------------------
-    setGrid((currentGrid) => {
-      return produce(currentGrid, (nextGrid) => {
-        for (let i = 0; i < rowNumber; i++) {
-          for (let j = 0; j < colNumber; j++) {
-            let neighbors = 0;
-            //--------------------
-            if (
-              i - 1 >= 0 &&
-              i + 1 < rowNumber &&
-              j - 1 >= 0 &&
-              j + 1 < colNumber &&
-              currentGrid[i - 1][j - 1] === 0 &&
-              currentGrid[i - 1][j] === 0 &&
-              currentGrid[i - 1][j + 1] === 0 &&
-              currentGrid[i][j - 1] === 0 &&
-              currentGrid[i][j + 1] === 0 &&
-              currentGrid[i + 1][j - 1] === 0 &&
-              currentGrid[i + 1][j] === 0 &&
-              currentGrid[i + 1][j + 1] === 0
-            ) {
-              nextGrid[i][j] = 0;
-            } else {
-              //--------------------
-              ruleset.forEach(([x, y]) => {
-                if (
-                  i + x >= 0 &&
-                  i + x < rowNumber &&
-                  j + y >= 0 &&
-                  j + y < colNumber
-                ) {
-                  neighbors += currentGrid[i + x][j + y];
-                }
-              });
-
-              if (neighbors < 2 || neighbors > 3) {
-                nextGrid[i][j] = 0;
-              } else if (currentGrid[i][j] === 0 && neighbors === 3) {
-                nextGrid[i][j] = 1;
-              }
-            }
-          }
-        }
-      });
-    });
-
-    if (nextStepRef.current === 1) {
-      setTimeout(runGame, speedRef.current);
-    }
-  };
-
   return (
     <Container
       className="themed-container"
       fluid={true}
-      style={{ marginTop: "2rem" }}
+      style={{ marginTop: "1rem" }}
     >
       <Row style={{ display: "flex", justifyContent: "space-around" }}>
         <Col className="col-grid">
@@ -438,7 +367,6 @@ const GridContainer = () => {
                 </Select>
               </FormControl>
 
-              {/**-------------------------------------------------- */}
               {/**------------------Cell color-------------------------------- */}
               <FormControl
                 variant="outlined"
@@ -512,55 +440,22 @@ const GridContainer = () => {
 };
 
 export default GridContainer;
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
 
-// const runGame1 = () => {
-//     if (!isRunningRef.current) {
-//       return;
-//     }
-//     setGeneration(generationRef.current + 1);
-
-//     setGrid((currentGrid) => {
-//       return produce(currentGrid, (nextGrid) => {
-//         let cacheI = {};
-//         let cacheJ = {};
-//         for (let i = 0; i < rowNumber; i++) {
-//           for (let j = 0; j < colNumber; j++) {
-//             let neighbors = 0;
-//             ruleset.forEach(([x, y]) => {
-//               if (
-//                 !cacheI.hasOwnProperty(i + x) &&
-//                 i + x >= 0 &&
-//                 i + x < rowNumber
-//               ) {
-//                 cacheI[i + x] = i + x;
-//               }
-//               if (
-//                 !cacheJ.hasOwnProperty(j + y) &&
-//                 j + y >= 0 &&
-//                 j + y < colNumber
-//               ) {
-//                 cacheJ[j + y] = j + y;
-//               }
-
-//               if (
-//                 cacheI.hasOwnProperty(i + x) &&
-//                 cacheJ.hasOwnProperty(j + y)
-//               ) {
-//                 neighbors += currentGrid[cacheI[i + x]][cacheJ[j + y]];
-//               }
-//             });
-
-//             if (neighbors < 2 || neighbors > 3) {
-//               nextGrid[i][j] = 0;
-//             } else if (currentGrid[i][j] === 0 && neighbors === 3) {
-//               nextGrid[i][j] = 1;
-//             }
-//           }
-//         }
-//       });
-//     });
-
-//     if (nextStepRef.current === 1) {
-//       setTimeout(runGame, speedRef.current);
-//     }
-//   };
+    flexWrap: "wrap",
+    "& > *": {
+      margin: theme.spacing(1),
+      width: theme.spacing(100),
+      height: theme.spacing(74),
+    },
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));

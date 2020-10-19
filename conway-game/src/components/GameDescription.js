@@ -2,30 +2,23 @@ import React from "react";
 import surface from "../assets/surface.gif";
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import { Container, Row, Col } from "reactstrap";
+import { Row } from "reactstrap";
 const GameDescription = () => {
   return (
     <div className="description">
-      <h2>About Game of Life</h2>
-      <p>
-        <img
-          src={surface}
-          alt="Surface"
-          style={{
-            width: "14rem",
-            height: "10rem",
-            // width: "20%",
-            // height: "15%",
-            marginLeft: "1rem",
-            float: "right",
-            marginRight: "2rem",
-          }}
-        />
+      <h4>About Game of Life</h4>
+      <div>
+        <div className="surface">
+          <img src={surface} alt="Surface" />
+          <p className="knot">
+            The Game of Life on the surface of a trefoil knot
+          </p>
+        </div>
         The Game of Life is a type of cellular automaton, created by British
         mathematician John Conway in 1970. It is a zero-player game, meaning
         that its evolution is determined by its initial state, requiring no
         further input.
-      </p>
+      </div>
       <p>
         Common pattern types include: still lifes, which do not change from one
         generation to the next; oscillators, which return to their initial state
@@ -33,7 +26,7 @@ const GameDescription = () => {
         themselves across the grid.
       </p>
 
-      <h2> Game of Life Rules:</h2>
+      <h4> Game of Life Rules:</h4>
       <div className="ul-rules">
         <ul>
           <li>
@@ -59,8 +52,9 @@ const GameDescription = () => {
             href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns"
             className="read-more"
             target="_blank"
+            rel="noopener noreferrer"
           >
-            Read more from Wikipedia <i class="fas fa-chevron-right"></i>
+            Read more from Wikipedia <i className="fas fa-chevron-right"></i>
           </a>
         </ul>
       </div>
@@ -72,7 +66,7 @@ const GameDescription = () => {
           paddingBottom: "1rem",
         }}
       >
-        <Box mt={5}>
+        <Box mt={1}>
           <Copyright />
         </Box>
       </Row>
