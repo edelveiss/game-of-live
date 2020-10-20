@@ -1,3 +1,4 @@
+//column and row numbers for diffrent grid size
 export const MEDIUM_ROW_NUMBER = 31;
 export const MEDIUM_COL_NUMBER = 44;
 export const MEDIUM_CELL_SIZE = 18.2;
@@ -9,7 +10,7 @@ export const LARGE_CELL_SIZE = 11;
 export const SMALL_ROW_NUMBER = 25;
 export const SMALL_COL_NUMBER = 35;
 export const SMALL_CELL_SIZE = 22.8;
-
+//coordinates for counting neighbors for current cell
 export const ruleset = [
   [1, 1],
   [1, 0],
