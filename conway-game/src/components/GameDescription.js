@@ -58,14 +58,7 @@ const GameDescription = () => {
           </a>
         </ul>
       </div>
-      <Row
-        style={{
-          display: "flex",
-          justifyContent: "flex-end",
-          marginRight: "5rem",
-          paddingBottom: "1rem",
-        }}
-      >
+      <Row className="copyright">
         <Box mt={1}>
           <Copyright />
         </Box>

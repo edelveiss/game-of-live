@@ -85,7 +85,7 @@ export const generateExampleGrid = (example, rowNumber, colNumber) => {
       acorn.map(
         (element) =>
           (exampleGrid[element.x + parseInt(rowNumber / 2)][
-            element.y + parseInt(colNumber / 2)
+            element.y + parseInt(colNumber / 2 + 10)
           ] = 1)
       );
       break;

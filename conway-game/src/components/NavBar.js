@@ -16,27 +16,10 @@ const NavBar = (props) => {
             <div className="nav-bar">
               <div className="gif-image">
                 <div className="conway" style={{ marginLeft: "2rem" }}>
-                  <img
-                    src={conway}
-                    alt="conway"
-                    style={{
-                      borderRadius: "4px",
-
-                      width: "90px",
-                    }}
-                  />
+                  <img src={conway} alt="conway" />
                 </div>
                 <div className="pulsar" style={{ marginLeft: "2rem" }}>
-                  <img
-                    src={pulsar}
-                    alt="pulsar"
-                    style={{
-                      border: "1px solid #ddd",
-                      borderRadius: "4px",
-                      padding: "3px",
-                      width: "100px",
-                    }}
-                  />
+                  <img src={pulsar} alt="pulsar" />
                 </div>
               </div>
               <div className="title">CONWAY'S GAME OF LIFE</div>

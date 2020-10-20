@@ -2,6 +2,15 @@ import React, { useState, useRef, useEffect } from "react";
 import produce from "immer";
 import { Container, Row, Col } from "reactstrap";
 import GameDescription from "./GameDescription";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import { Typography } from "@material-ui/core";
+import Slider from "@material-ui/core/Slider";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
 import {
   ruleset,
   MEDIUM_ROW_NUMBER,
@@ -14,15 +23,6 @@ import {
   gridSizeChange,
   createEmptyGrid,
 } from "../helpers/gridCreation";
-import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import { Typography } from "@material-ui/core";
-import Slider from "@material-ui/core/Slider";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 
 let rowNumber = MEDIUM_ROW_NUMBER;
 let colNumber = MEDIUM_COL_NUMBER;
@@ -126,38 +126,29 @@ const GridContainer = () => {
     setGeneration(0);
     setIsRunning(false);
   };
-  //3================ Game Logic ====================//
+  //================ Game Logic ====================//
 
   const runGame = () => {
     if (!isRunningRef.current) {
       return;
     }
     setGeneration(generationRef.current + 1);
-
+    //---------------------------------------------------
     setGrid((currentGrid) => {
       return produce(currentGrid, (nextGrid) => {
-        let cacheI = {};
-        let cacheJ = {};
-
         for (let i = 0; i < rowNumber; i++) {
           for (let j = 0; j < colNumber; j++) {
             let neighbors = 0;
             ruleset.forEach(([x, y]) => {
-              let ruleSetI = i + x;
-              let ruleSetY = j + y;
-
-              if (!cacheI[ruleSetI]) {
-                if (ruleSetI >= 0 && ruleSetI < rowNumber) {
-                  cacheI[ruleSetI] = ruleSetI;
-                }
-              } else if (!cacheJ[ruleSetY]) {
-                if (ruleSetY >= 0 && ruleSetY < colNumber) {
-                  cacheJ[ruleSetY] = ruleSetY;
-                }
-              }
-
-              if (cacheI[ruleSetI] && cacheJ[ruleSetY]) {
-                neighbors += currentGrid[cacheI[i + x]][cacheJ[j + y]];
+              const ruleSetI = i + x;
+              const ruleSetY = j + y;
+              if (
+                ruleSetI >= 0 &&
+                ruleSetI < rowNumber &&
+                ruleSetY >= 0 &&
+                ruleSetY < colNumber
+              ) {
+                neighbors += currentGrid[ruleSetI][ruleSetY];
               }
             });
 
@@ -356,13 +347,13 @@ const GridContainer = () => {
                   label="examples"
                 >
                   <MenuItem value={"preset"}>Samples</MenuItem>
-                  <MenuItem value={"oscillator"}>Oscillator</MenuItem>
+                  <MenuItem value={"pulsarGen"}>Pulsar</MenuItem>
                   <MenuItem value={"gliderGun"}>GliderGun</MenuItem>
                   <MenuItem value={"queen"}>Queen</MenuItem>
                   <MenuItem value={"spaceShips"}>Space Ships</MenuItem>
                   <MenuItem value={"breed1"}>Double Breed</MenuItem>
                   <MenuItem value={"breed"}>Breed</MenuItem>
-                  <MenuItem value={"pulsarGen"}>PulsarGen</MenuItem>
+
                   <MenuItem value={"acorn"}>Acorn</MenuItem>
                   <MenuItem value={"infiniteRepeat"}>InfiniteRepeat</MenuItem>
                 </Select>

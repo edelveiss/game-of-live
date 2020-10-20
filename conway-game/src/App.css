@@ -26,6 +26,17 @@ p {
   flex-direction: row;
   justify-content: space-around;
 }
+.conway img {
+  border-radius: 4px;
+
+  width: 90px;
+}
+.pulsar img {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 3px;
+  width: 100px;
+}
 
 .cell-color {
   width: 20px;
@@ -132,7 +143,6 @@ i:hover {
   background: #eb93df;
 }
 .title {
-  /* width: 80%; */
   margin-left: 3rem;
   text-align: center;
   font-weight: bolder;
@@ -165,6 +175,12 @@ i:hover {
   font-size: 0.8rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+}
+.copyright {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 2rem;
+  padding-bottom: 1rem;
 }
 
 @media only screen and (max-width: 800px) {
