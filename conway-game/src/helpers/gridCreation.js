@@ -10,6 +10,9 @@ import {
   spaceShips,
   pulsarGen,
   breed3,
+  spaceShips1,
+  spaceShips2,
+  spaceShips3,
   //------------------grid size constants-------------------------------------
   SMALL_ROW_NUMBER,
   SMALL_COL_NUMBER,
@@ -69,6 +72,30 @@ export const generateExampleGrid = (example, rowNumber, colNumber) => {
         (element) =>
           (exampleGrid[element.x + parseInt(rowNumber / 5) + 11][
             element.y + parseInt(colNumber / 5)
+          ] = 1)
+      );
+
+      break;
+    }
+
+    //------------------spaceShips 1 2 -------------------
+    case "spaceShips123": {
+      spaceShips1.map(
+        (element) =>
+          (exampleGrid[element.x + parseInt(rowNumber / 5) - 3][
+            element.y + parseInt(colNumber / 5)
+          ] = 1)
+      );
+      spaceShips2.map(
+        (element) =>
+          (exampleGrid[element.x + parseInt(rowNumber / 2 + 5)][
+            element.y + parseInt(colNumber / 1.5 + 9)
+          ] = 1)
+      );
+      spaceShips3.map(
+        (element) =>
+          (exampleGrid[element.x + parseInt(rowNumber / 5 + 5)][
+            element.y + parseInt(colNumber / 1.5 - 5)
           ] = 1)
       );
 

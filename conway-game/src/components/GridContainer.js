@@ -357,6 +357,7 @@ const GridContainer = () => {
                     <MenuItem value={"gliderGun"}>GliderGun</MenuItem>
                     <MenuItem value={"queen"}>Queen</MenuItem>
                     <MenuItem value={"spaceShips"}>Space Ships</MenuItem>
+                    <MenuItem value={"spaceShips123"}>Three Ships</MenuItem>
                     <MenuItem value={"breed1"}>Double Breed</MenuItem>
                     <MenuItem value={"breed"}>Breed</MenuItem>
                     <MenuItem value={"breed3"}>Breed3</MenuItem>
