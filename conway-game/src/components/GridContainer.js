@@ -128,7 +128,6 @@ const GridContainer = () => {
   };
   //================ Game Logic ====================//
 
-  //---------------------------------------------------
   const runGame = () => {
     if (!isRunningRef.current) {
       return;
