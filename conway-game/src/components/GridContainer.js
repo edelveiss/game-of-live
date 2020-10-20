@@ -133,22 +133,31 @@ const GridContainer = () => {
       return;
     }
     setGeneration(generationRef.current + 1);
-    //---------------------------------------------------
+
     setGrid((currentGrid) => {
       return produce(currentGrid, (nextGrid) => {
+        let cacheI = {};
+        let cacheJ = {};
+
         for (let i = 0; i < rowNumber; i++) {
           for (let j = 0; j < colNumber; j++) {
             let neighbors = 0;
             ruleset.forEach(([x, y]) => {
-              const ruleSetI = i + x;
-              const ruleSetY = j + y;
-              if (
-                ruleSetI >= 0 &&
-                ruleSetI < rowNumber &&
-                ruleSetY >= 0 &&
-                ruleSetY < colNumber
-              ) {
-                neighbors += currentGrid[ruleSetI][ruleSetY];
+              let ruleSetI = i + x;
+              let ruleSetY = j + y;
+
+              if (!cacheI[ruleSetI]) {
+                if (ruleSetI >= 0 && ruleSetI < rowNumber) {
+                  cacheI[ruleSetI] = ruleSetI;
+                }
+              } else if (!cacheJ[ruleSetY]) {
+                if (ruleSetY >= 0 && ruleSetY < colNumber) {
+                  cacheJ[ruleSetY] = ruleSetY;
+                }
+              }
+
+              if (cacheI[ruleSetI] && cacheJ[ruleSetY]) {
+                neighbors += currentGrid[cacheI[ruleSetI]][cacheJ[ruleSetY]];
               }
             });
 
