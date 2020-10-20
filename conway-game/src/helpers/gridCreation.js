@@ -41,6 +41,7 @@ export const createRandomGrid = (rows, cols) => {
 
   return arr;
 };
+
 //------------------generateExampleGrid-------------------------------------
 export const generateExampleGrid = (example, rowNumber, colNumber) => {
   let exampleGrid = [];

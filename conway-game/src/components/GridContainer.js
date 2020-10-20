@@ -128,6 +128,19 @@ const GridContainer = () => {
   };
   //================ Game Logic ====================//
 
+  function neighborsCounter(currentGrid, x, y) {
+    let neighbors = 0;
+    ruleset.forEach(([i, j]) => {
+      let row = (x + i + rowNumber) % rowNumber;
+      let col = (y + j + colNumber) % colNumber;
+      neighbors += currentGrid[row][col];
+    });
+
+    return neighbors;
+  }
+
+  //-----------------runGame-------------------------------
+
   const runGame = () => {
     if (!isRunningRef.current) {
       return;
@@ -138,24 +151,15 @@ const GridContainer = () => {
       return produce(currentGrid, (nextGrid) => {
         for (let i = 0; i < rowNumber; i++) {
           for (let j = 0; j < colNumber; j++) {
-            let neighbors = 0;
-            ruleset.forEach(([x, y]) => {
-              const ruleSetI = i + x;
-              const ruleSetY = j + y;
-              if (
-                ruleSetI >= 0 &&
-                ruleSetI < rowNumber &&
-                ruleSetY >= 0 &&
-                ruleSetY < colNumber
-              ) {
-                neighbors += currentGrid[ruleSetI][ruleSetY];
-              }
-            });
+            let currentCell = currentGrid[i][j];
+            let neighbors = neighborsCounter(currentGrid, i, j);
 
             if (neighbors < 2 || neighbors > 3) {
               nextGrid[i][j] = 0;
             } else if (currentGrid[i][j] === 0 && neighbors === 3) {
               nextGrid[i][j] = 1;
+            } else {
+              nextGrid[i][j] = currentCell;
             }
           }
         }
@@ -167,6 +171,8 @@ const GridContainer = () => {
     }
   };
 
+  //----------------------------------------------------
+
   return (
     <Container
       className="themed-container"
@@ -176,6 +182,9 @@ const GridContainer = () => {
       <Row style={{ display: "flex", justifyContent: "space-around" }}>
         <Col className="col-grid">
           <Row style={{ marginLeft: "1rem" }}>
+            <div style={{ marginLeft: "3rem" }}>
+              Wrapped around to the far side version
+            </div>
             <div className={classes.root}>
               {/** */}
               <Paper elevation={3}>
