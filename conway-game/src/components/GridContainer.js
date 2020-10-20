@@ -136,18 +136,26 @@ const GridContainer = () => {
 
     setGrid((currentGrid) => {
       return produce(currentGrid, (nextGrid) => {
+        let cacheI = {};
+        let cacheJ = {};
         let i = 0;
         while (i < rowNumber) {
           let j = 0;
           while (j < colNumber) {
             let neighbors = 0;
             ruleset.forEach(([x, y]) => {
+              const rowi = x + i + rowNumber;
+              const colj = y + j + colNumber;
               //Edge case handling
               //Wrap around to the far side
-              let row = (x + i + rowNumber) % rowNumber;
-              let col = (y + j + colNumber) % colNumber;
+              if (!cacheI[rowi]) {
+                cacheI[rowi] = rowi % rowNumber;
+              }
+              if (!cacheJ[colj]) {
+                cacheJ[colj] = colj % colNumber;
+              }
               //count neighbors
-              neighbors += currentGrid[row][col];
+              neighbors += currentGrid[cacheI[rowi]][cacheJ[colj]];
             });
             //check  game rules
             if (neighbors < 2 || neighbors > 3) {
