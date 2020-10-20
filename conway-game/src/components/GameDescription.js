@@ -8,12 +8,14 @@ const GameDescription = () => {
     <div className="description">
       <h4>About Game of Life</h4>
       <div style={{ textAlign: "left" }}>
+        {/***************** knot surface image ********************/}
         <div className="surface">
           <img src={surface} alt="Surface" />
           <p className="knot">
             The Game of Life on the surface of a trefoil knot
           </p>
         </div>
+        {/***************** Game of Life Description ********************/}
         The Game of Life is a type of cellular automaton, created by British
         mathematician John Conway in 1970. It is a zero-player game, meaning
         that its evolution is determined by its initial state, requiring no
@@ -25,7 +27,7 @@ const GameDescription = () => {
         after a finite number of generations; and spaceships, which translate
         themselves across the grid.
       </p>
-
+      {/***************** Game of Life Rules ********************/}
       <h4> Game of Life Rules:</h4>
       <div className="ul-rules">
         <ul>
@@ -48,6 +50,7 @@ const GameDescription = () => {
             <strong>live </strong>
             cell.
           </li>
+          {/***************** Wikipedia link ********************/}
           <a
             href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Examples_of_patterns"
             className="read-more"
@@ -58,6 +61,7 @@ const GameDescription = () => {
           </a>
         </ul>
       </div>
+      {/***************** copyright box ********************/}
       <Row className="copyright">
         <Box mt={1}>
           <Copyright />

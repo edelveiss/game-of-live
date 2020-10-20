@@ -14,14 +14,17 @@ const NavBar = (props) => {
         <Toolbar>
           <Typography variant="h3" className={classes.title}>
             <div className="nav-bar">
+              {/***************** Conway's image ********************/}
               <div className="gif-image">
                 <div className="conway" style={{ marginLeft: "2rem" }}>
                   <img src={conway} alt="conway" />
                 </div>
+                {/***************** pulsar image ********************/}
                 <div className="pulsar" style={{ marginLeft: "2rem" }}>
                   <img src={pulsar} alt="pulsar" />
                 </div>
               </div>
+              {/***************** title ********************/}
               <div className="title">CONWAY'S GAME OF LIFE</div>
             </div>
           </Typography>

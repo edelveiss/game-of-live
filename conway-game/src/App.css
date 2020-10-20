@@ -187,11 +187,14 @@ i:hover {
   margin-right: 2rem;
   padding-bottom: 1rem;
 }
+
+/****************** @media quieries max-width: 1500px*****************/
 @media only screen and (max-width: 1500px) {
   .themed-container {
     width: 100%;
   }
 }
+/****************** @media quieries max-width: 1250px*****************/
 @media only screen and (max-width: 1250px) {
   .paper {
     width: 100%;
@@ -206,6 +209,7 @@ i:hover {
     align-items: center;
   }
 }
+/****************** @media quieries max-width: 800px*****************/
 @media only screen and (max-width: 800px) {
   .themed-container {
     width: 90%;
@@ -223,6 +227,7 @@ i:hover {
     font-size: 2rem;
   }
 }
+/****************** @media quieries max-width: 600px*****************/
 @media only screen and (max-width: 600px) {
   .col-grid {
     width: 90%;
@@ -235,6 +240,7 @@ i:hover {
     font-size: 2rem;
   }
 }
+/****************** @media quieries max-width: 350px*****************/
 @media only screen and (max-width: 350px) {
   .col-Description {
     width: 80%;

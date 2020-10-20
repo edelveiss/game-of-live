@@ -34,10 +34,6 @@ const GridContainer = () => {
     return createEmptyGrid(rowNumber, colNumber);
   });
 
-  const [nextGrid, setNextGrid] = useState(() => {
-    return createEmptyGrid(rowNumber, colNumber);
-  });
-
   const [speed, setSpeed] = useState(100);
   const [generation, setGeneration] = useState(0);
   const [gridSize, setGridSize] = useState("Medium");
@@ -73,18 +69,18 @@ const GridContainer = () => {
   useEffect(() => {
     setGrid(generateExampleGrid(gameExamples, rowNumber, colNumber));
   }, [gameExamples]);
-  //================handleSpeedChange====================//
+  //================handle Speed Change====================//
   const handleSpeedChange = (e, value) => {
     setSpeed(100 * value);
     speedRef.current = 100 * value;
   };
 
-  //================handleCellColorChange====================//
+  //================handle Cell Color Change====================//
   const handleCellColorChange = (e) => {
     e.preventDefault();
     setCellColor(e.target.value);
   };
-  //================handleGridSizeChange====================//
+  //================handle Grid Size Change====================//
   const handleGridSizeChange = (e) => {
     e.preventDefault();
     setGeneration(0);
@@ -146,11 +142,14 @@ const GridContainer = () => {
           while (j < colNumber) {
             let neighbors = 0;
             ruleset.forEach(([x, y]) => {
+              //Edge case handling
+              //Wrap around to the far side
               let row = (x + i + rowNumber) % rowNumber;
               let col = (y + j + colNumber) % colNumber;
+              //count neighbors
               neighbors += currentGrid[row][col];
             });
-
+            //check  game rules
             if (neighbors < 2 || neighbors > 3) {
               nextGrid[i][j] = 0;
             } else if (currentGrid[i][j] === 0 && neighbors === 3) {
@@ -164,6 +163,7 @@ const GridContainer = () => {
     });
 
     if (nextStepRef.current === 1) {
+      //set the interval between generations, run the game untill isRunningRef.current is true
       setTimeout(runGame, speedRef.current);
     }
   };
@@ -194,7 +194,7 @@ const GridContainer = () => {
                       rows.map((col, j) => (
                         <div
                           className="cell"
-                          key={`${i}-${j}`}
+                          key={`${i}${j}`}
                           onClick={() => {
                             if (!isRunningRef.current) {
                               const newGrid = produce(grid, (nextGrid) => {
@@ -238,7 +238,7 @@ const GridContainer = () => {
               </div>
             </div>
           </Row>
-          {/******************************* */}
+          {/****************** Buttons panel ************* */}
           <Row className="btn-media" style={{ marginLeft: "1rem" }}>
             <div>
               <div className="btns">
@@ -423,13 +423,11 @@ const GridContainer = () => {
                     </MenuItem>
                   </Select>
                 </FormControl>
-
-                {/**------------------------------------ */}
               </div>
             </div>
           </Row>
         </Col>
-
+        {/**--------------Description column---------------------- */}
         <Col className="col-Description">
           <GameDescription />
         </Col>
