@@ -231,7 +231,7 @@ const GridContainer = () => {
                   </div>
 
                   <div className="speed">
-                    Speed: <span>{parseInt(speed)}ms/gen</span>
+                    Interval: <span>{parseInt(speed)}ms</span>
                   </div>
 
                   <div className="generation">
@@ -362,6 +362,7 @@ const GridContainer = () => {
                   <MenuItem value={"spaceShips"}>Space Ships</MenuItem>
                   <MenuItem value={"breed1"}>Double Breed</MenuItem>
                   <MenuItem value={"breed"}>Breed</MenuItem>
+                  <MenuItem value={"pulsarGen"}>PulsarGen</MenuItem>
                   <MenuItem value={"acorn"}>Acorn</MenuItem>
                   <MenuItem value={"infiniteRepeat"}>InfiniteRepeat</MenuItem>
                 </Select>

@@ -132,6 +132,7 @@ i:hover {
   background: #eb93df;
 }
 .title {
+  /* width: 80%; */
   margin-left: 3rem;
   text-align: center;
   font-weight: bolder;

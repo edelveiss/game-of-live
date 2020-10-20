@@ -8,6 +8,7 @@ import {
   breed1,
   queen,
   spaceShips,
+  pulsarGen,
   //------------------grid size constants-------------------------------------
   SMALL_ROW_NUMBER,
   SMALL_COL_NUMBER,
@@ -73,8 +74,8 @@ export const generateExampleGrid = (example, rowNumber, colNumber) => {
     case "queen": {
       queen.map(
         (element) =>
-          (exampleGrid[element.x + parseInt(rowNumber / 2.5)][
-            element.y + parseInt(colNumber / 2.5)
+          (exampleGrid[element.x + parseInt(rowNumber / 3)][
+            element.y + parseInt(colNumber / 4)
           ] = 1)
       );
       break;
@@ -115,6 +116,16 @@ export const generateExampleGrid = (example, rowNumber, colNumber) => {
         (element) =>
           (exampleGrid[element.x + parseInt(rowNumber / 2.5)][
             element.y + parseInt(colNumber / 2.5)
+          ] = 1)
+      );
+      break;
+    }
+    //------------------oscillator-------------------
+    case "pulsarGen": {
+      pulsarGen.map(
+        (element) =>
+          (exampleGrid[element.x + parseInt(rowNumber / 2.5)][
+            element.y + parseInt(colNumber / 2.3)
           ] = 1)
       );
       break;
