@@ -192,6 +192,20 @@ i:hover {
     width: 100%;
   }
 }
+@media only screen and (max-width: 1250px) {
+  .paper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0px;
+  }
+  .btn-media {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
 @media only screen and (max-width: 800px) {
   .themed-container {
     width: 90%;
@@ -199,6 +213,7 @@ i:hover {
   .col-grid {
     width: 90%;
   }
+
   .col-Description {
     width: 80%;
     margin-left: 2rem;

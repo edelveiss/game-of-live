@@ -34,6 +34,10 @@ const GridContainer = () => {
     return createEmptyGrid(rowNumber, colNumber);
   });
 
+  const [nextGrid, setNextGrid] = useState(() => {
+    return createEmptyGrid(rowNumber, colNumber);
+  });
+
   const [speed, setSpeed] = useState(100);
   const [generation, setGeneration] = useState(0);
   const [gridSize, setGridSize] = useState("Medium");
@@ -128,19 +132,6 @@ const GridContainer = () => {
   };
   //================ Game Logic ====================//
 
-  function neighborsCounter(currentGrid, x, y) {
-    let neighbors = 0;
-    ruleset.forEach(([i, j]) => {
-      let row = (x + i + rowNumber) % rowNumber;
-      let col = (y + j + colNumber) % colNumber;
-      neighbors += currentGrid[row][col];
-    });
-
-    return neighbors;
-  }
-
-  //-----------------runGame-------------------------------
-
   const runGame = () => {
     if (!isRunningRef.current) {
       return;
@@ -149,19 +140,25 @@ const GridContainer = () => {
 
     setGrid((currentGrid) => {
       return produce(currentGrid, (nextGrid) => {
-        for (let i = 0; i < rowNumber; i++) {
-          for (let j = 0; j < colNumber; j++) {
-            let currentCell = currentGrid[i][j];
-            let neighbors = neighborsCounter(currentGrid, i, j);
+        let i = 0;
+        while (i < rowNumber) {
+          let j = 0;
+          while (j < colNumber) {
+            let neighbors = 0;
+            ruleset.forEach(([x, y]) => {
+              let row = (x + i + rowNumber) % rowNumber;
+              let col = (y + j + colNumber) % colNumber;
+              neighbors += currentGrid[row][col];
+            });
 
             if (neighbors < 2 || neighbors > 3) {
               nextGrid[i][j] = 0;
             } else if (currentGrid[i][j] === 0 && neighbors === 3) {
               nextGrid[i][j] = 1;
-            } else {
-              nextGrid[i][j] = currentCell;
             }
+            j++;
           }
+          i++;
         }
       });
     });
@@ -170,9 +167,6 @@ const GridContainer = () => {
       setTimeout(runGame, speedRef.current);
     }
   };
-
-  //----------------------------------------------------
-
   return (
     <Container
       className="themed-container"
@@ -181,253 +175,257 @@ const GridContainer = () => {
     >
       <Row style={{ display: "flex", justifyContent: "space-around" }}>
         <Col className="col-grid">
-          <Row style={{ marginLeft: "1rem" }}>
-            <div style={{ marginLeft: "3rem" }}>
-              Wrapped around to the far side version
-            </div>
-            <div className={classes.root}>
-              {/** */}
-              <Paper elevation={3}>
-                {/**-----------------------grid---------------------------------- */}
-                <div
-                  className="grid-container"
-                  style={{
-                    gridTemplateColumns: `repeat(${colNumber}, ${cellSize}px)`,
-                  }}
-                >
-                  {grid.map((rows, i) =>
-                    rows.map((col, j) => (
-                      <div
-                        className="cell"
-                        key={`${i}-${j}`}
-                        onClick={() => {
-                          if (!isRunningRef.current) {
-                            const newGrid = produce(grid, (nextGrid) => {
-                              nextGrid[i][j] = grid[i][j] ? 0 : 1; //cell toggle
-                            });
+          <Row className="paper" style={{ marginLeft: "1rem" }}>
+            <div>
+              <div style={{ marginLeft: "2rem" }}>
+                Wrapped around to the far side version
+              </div>
+              <div className={classes.root}>
+                {/** */}
+                <Paper elevation={3}>
+                  {/**-----------------------grid---------------------------------- */}
+                  <div
+                    className="grid-container"
+                    style={{
+                      gridTemplateColumns: `repeat(${colNumber}, ${cellSize}px)`,
+                    }}
+                  >
+                    {grid.map((rows, i) =>
+                      rows.map((col, j) => (
+                        <div
+                          className="cell"
+                          key={`${i}-${j}`}
+                          onClick={() => {
+                            if (!isRunningRef.current) {
+                              const newGrid = produce(grid, (nextGrid) => {
+                                nextGrid[i][j] = grid[i][j] ? 0 : 1; //cell toggle
+                              });
 
-                            setGrid(newGrid);
-                          }
-                        }}
-                        style={{
-                          width: cellSize,
-                          height: cellSize,
+                              setGrid(newGrid);
+                            }
+                          }}
+                          style={{
+                            width: cellSize,
+                            height: cellSize,
 
-                          backgroundColor:
-                            grid[i][j] === 1 ? cellColor : undefined,
-                        }}
-                      />
-                    ))
-                  )}
-                </div>
-                {/**---------------low panel------------------------ */}
-
-                <div className="low-paper">
-                  <div className="grid-size-span">
-                    Grid Size:{" "}
-                    <span>
-                      {rowNumber}x{colNumber}
-                    </span>
+                            backgroundColor:
+                              grid[i][j] === 1 ? cellColor : undefined,
+                          }}
+                        />
+                      ))
+                    )}
                   </div>
+                  {/**---------------low panel------------------------ */}
 
-                  <div className="speed">
-                    Interval: <span>{parseInt(speed)}ms</span>
-                  </div>
+                  <div className="low-paper">
+                    <div className="grid-size-span">
+                      Grid Size:{" "}
+                      <span>
+                        {rowNumber}x{colNumber}
+                      </span>
+                    </div>
 
-                  <div className="generation">
-                    Generation:{" "}
-                    <span className="block-span ">{generation}</span>
+                    <div className="speed">
+                      Interval: <span>{parseInt(speed)}ms</span>
+                    </div>
+
+                    <div className="generation">
+                      Generation:{" "}
+                      <span className="block-span ">{generation}</span>
+                    </div>
                   </div>
-                </div>
-              </Paper>
+                </Paper>
+              </div>
             </div>
           </Row>
           {/******************************* */}
-          <Row style={{ marginLeft: "1rem" }}>
-            <div className="btns">
-              {/**-------------start ------------ */}
-              <Button
-                className="btn"
-                variant="contained"
-                color="secondary"
-                onClick={hangleStartChange}
-                style={{
-                  marginRight: "0.4rem",
-                  color: "white",
-                  height: "2.7rem",
-                }}
-              >
-                start
-              </Button>
+          <Row className="btn-media" style={{ marginLeft: "1rem" }}>
+            <div>
+              <div className="btns">
+                {/**-------------start ------------ */}
+                <Button
+                  className="btn"
+                  variant="contained"
+                  color="secondary"
+                  onClick={hangleStartChange}
+                  style={{
+                    marginRight: "0.4rem",
+                    color: "white",
+                    height: "2.7rem",
+                  }}
+                >
+                  start
+                </Button>
 
-              {/**-------------stop------------ */}
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleStopChange}
-                style={{ marginRight: "0.4rem", height: "2.7rem" }}
-              >
-                stop
-              </Button>
+                {/**-------------stop------------ */}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleStopChange}
+                  style={{ marginRight: "0.4rem", height: "2.7rem" }}
+                >
+                  stop
+                </Button>
 
-              {/**-------------next step------------ */}
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={handleNextStepChange}
-                style={{ marginRight: "0.4rem", height: "2.7rem" }}
-              >
-                next
-              </Button>
+                {/**-------------next step------------ */}
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={handleNextStepChange}
+                  style={{ marginRight: "0.4rem", height: "2.7rem" }}
+                >
+                  next
+                </Button>
 
-              {/**-------------random------------ */}
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleRandomGridChange}
-                style={{ marginRight: "0.4rem", height: "2.7rem" }}
-              >
-                random
-              </Button>
+                {/**-------------random------------ */}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleRandomGridChange}
+                  style={{ marginRight: "0.4rem", height: "2.7rem" }}
+                >
+                  random
+                </Button>
 
-              {/**-------------clear------------ */}
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleClearChange}
-                style={{ marginRight: "0.7rem", height: "2.7rem" }}
-              >
-                clear
-              </Button>
-              {/**---------------------Speed------------------------------ */}
-              <div style={{ width: "6rem", marginRight: "0.5rem" }}>
-                <Typography id="speed-slider" gutterBottom>
-                  fast &nbsp; &nbsp; &nbsp; slow
-                </Typography>
-                <Slider
-                  defaultValue={1}
-                  aria-labelledby="speed"
-                  step={0.5}
-                  marks
-                  min={0.1}
-                  max={3.0}
-                  valueLabelDisplay="auto"
-                  onChange={handleSpeedChange}
-                />
+                {/**-------------clear------------ */}
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleClearChange}
+                  style={{ marginRight: "0.7rem", height: "2.7rem" }}
+                >
+                  clear
+                </Button>
+                {/**---------------------Speed------------------------------ */}
+                <div style={{ width: "6rem", marginRight: "0.5rem" }}>
+                  <Typography id="speed-slider" gutterBottom>
+                    fast &nbsp; &nbsp; &nbsp; slow
+                  </Typography>
+                  <Slider
+                    defaultValue={1}
+                    aria-labelledby="speed"
+                    step={0.5}
+                    marks
+                    min={0.1}
+                    max={3.0}
+                    valueLabelDisplay="auto"
+                    onChange={handleSpeedChange}
+                  />
+                </div>
+
+                {/**------------------Grid Form select-------------------------------- */}
+                <FormControl
+                  variant="outlined"
+                  className={classes.formControl}
+                  style={{ marginRight: "0.4rem", widht: "4rem" }}
+                >
+                  <InputLabel id="demo-simple-select-outlined-label">
+                    GrSize
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-outlined-label"
+                    id="grid-size-select-outlined"
+                    value={gridSize}
+                    onChange={handleGridSizeChange}
+                    label="grid-size"
+                  >
+                    <MenuItem value={"Small"}>Small</MenuItem>
+                    <MenuItem value={"Medium"}>Medium</MenuItem>
+                    <MenuItem value={"Large"}>Large</MenuItem>
+                  </Select>
+                </FormControl>
+
+                {/**------------------Game of Life samples------------------ */}
+                <FormControl
+                  variant="outlined"
+                  className={classes.formControl}
+                  style={{ marginRight: "0.4rem", widht: "3rem" }}
+                >
+                  <InputLabel id="examples-select-outlined-label">
+                    Preset
+                  </InputLabel>
+
+                  <Select
+                    labelId="examples-select-outlined-label"
+                    id="examples-select-outlined"
+                    value={gameExamples}
+                    onChange={handleGameExamplesChange}
+                    label="examples"
+                  >
+                    <MenuItem value={"preset"}>Samples</MenuItem>
+                    <MenuItem value={"pulsarGen"}>Pulsar</MenuItem>
+                    <MenuItem value={"gliderGun"}>GliderGun</MenuItem>
+                    <MenuItem value={"queen"}>Queen</MenuItem>
+                    <MenuItem value={"spaceShips"}>Space Ships</MenuItem>
+                    <MenuItem value={"breed1"}>Double Breed</MenuItem>
+                    <MenuItem value={"breed"}>Breed</MenuItem>
+                    <MenuItem value={"breed3"}>Breed3</MenuItem>
+                    <MenuItem value={"acorn"}>Acorn</MenuItem>
+                    <MenuItem value={"infiniteRepeat"}>InfiniteRepeat</MenuItem>
+                  </Select>
+                </FormControl>
+
+                {/**------------------Cell color-------------------------------- */}
+                <FormControl
+                  variant="outlined"
+                  className={classes.formControl}
+                  style={{ widht: "1rem" }}
+                >
+                  <InputLabel id="cell-simple-select-outlined-label">
+                    CellColor
+                  </InputLabel>
+                  <Select
+                    labelId="cell-simple-select-outlined-label"
+                    id="cell-select-outlined"
+                    value={cellColor}
+                    onChange={handleCellColorChange}
+                    label="cell-color"
+                  >
+                    <MenuItem value={"#f3004d"}>
+                      <div
+                        className="cell-color"
+                        style={{
+                          background: "#f3004d",
+                        }}
+                      ></div>
+                    </MenuItem>
+                    <MenuItem value={"#3747ac"}>
+                      <div
+                        className="cell-color"
+                        style={{
+                          background: "#3747ac",
+                        }}
+                      ></div>
+                    </MenuItem>
+                    <MenuItem value={"#43a646"}>
+                      <div
+                        className="cell-color"
+                        style={{
+                          background: "#43a646",
+                        }}
+                      ></div>
+                    </MenuItem>
+                    <MenuItem value={"#9123a7"}>
+                      <div
+                        className="cell-color"
+                        style={{
+                          background: "#9123a7",
+                        }}
+                      ></div>
+                    </MenuItem>
+                    <MenuItem value={"#0de7b4"}>
+                      <div
+                        className="cell-color"
+                        style={{
+                          background: "#0de7b4",
+                        }}
+                      ></div>
+                    </MenuItem>
+                  </Select>
+                </FormControl>
+
+                {/**------------------------------------ */}
               </div>
-
-              {/**------------------Grid Form select-------------------------------- */}
-              <FormControl
-                variant="outlined"
-                className={classes.formControl}
-                style={{ marginRight: "0.4rem", widht: "4rem" }}
-              >
-                <InputLabel id="demo-simple-select-outlined-label">
-                  GrSize
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="grid-size-select-outlined"
-                  value={gridSize}
-                  onChange={handleGridSizeChange}
-                  label="grid-size"
-                >
-                  <MenuItem value={"Small"}>Small</MenuItem>
-                  <MenuItem value={"Medium"}>Medium</MenuItem>
-                  <MenuItem value={"Large"}>Large</MenuItem>
-                </Select>
-              </FormControl>
-
-              {/**------------------Game of Life samples------------------ */}
-              <FormControl
-                variant="outlined"
-                className={classes.formControl}
-                style={{ marginRight: "0.4rem", widht: "3rem" }}
-              >
-                <InputLabel id="examples-select-outlined-label">
-                  Preset
-                </InputLabel>
-
-                <Select
-                  labelId="examples-select-outlined-label"
-                  id="examples-select-outlined"
-                  value={gameExamples}
-                  onChange={handleGameExamplesChange}
-                  label="examples"
-                >
-                  <MenuItem value={"preset"}>Samples</MenuItem>
-                  <MenuItem value={"pulsarGen"}>Pulsar</MenuItem>
-                  <MenuItem value={"gliderGun"}>GliderGun</MenuItem>
-                  <MenuItem value={"queen"}>Queen</MenuItem>
-                  <MenuItem value={"spaceShips"}>Space Ships</MenuItem>
-                  <MenuItem value={"breed1"}>Double Breed</MenuItem>
-                  <MenuItem value={"breed"}>Breed</MenuItem>
-                  <MenuItem value={"breed3"}>Breed3</MenuItem>
-                  <MenuItem value={"acorn"}>Acorn</MenuItem>
-                  <MenuItem value={"infiniteRepeat"}>InfiniteRepeat</MenuItem>
-                </Select>
-              </FormControl>
-
-              {/**------------------Cell color-------------------------------- */}
-              <FormControl
-                variant="outlined"
-                className={classes.formControl}
-                style={{ widht: "1rem" }}
-              >
-                <InputLabel id="cell-simple-select-outlined-label">
-                  CellColor
-                </InputLabel>
-                <Select
-                  labelId="cell-simple-select-outlined-label"
-                  id="cell-select-outlined"
-                  value={cellColor}
-                  onChange={handleCellColorChange}
-                  label="cell-color"
-                >
-                  <MenuItem value={"#f3004d"}>
-                    <div
-                      className="cell-color"
-                      style={{
-                        background: "#f3004d",
-                      }}
-                    ></div>
-                  </MenuItem>
-                  <MenuItem value={"#3747ac"}>
-                    <div
-                      className="cell-color"
-                      style={{
-                        background: "#3747ac",
-                      }}
-                    ></div>
-                  </MenuItem>
-                  <MenuItem value={"#43a646"}>
-                    <div
-                      className="cell-color"
-                      style={{
-                        background: "#43a646",
-                      }}
-                    ></div>
-                  </MenuItem>
-                  <MenuItem value={"#9123a7"}>
-                    <div
-                      className="cell-color"
-                      style={{
-                        background: "#9123a7",
-                      }}
-                    ></div>
-                  </MenuItem>
-                  <MenuItem value={"#0de7b4"}>
-                    <div
-                      className="cell-color"
-                      style={{
-                        background: "#0de7b4",
-                      }}
-                    ></div>
-                  </MenuItem>
-                </Select>
-              </FormControl>
-
-              {/**------------------------------------ */}
             </div>
           </Row>
         </Col>
