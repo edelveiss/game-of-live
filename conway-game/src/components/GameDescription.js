@@ -7,7 +7,7 @@ const GameDescription = () => {
   return (
     <div className="description">
       <h4>About Game of Life</h4>
-      <div>
+      <div style={{ textAlign: "left" }}>
         <div className="surface">
           <img src={surface} alt="Surface" />
           <p className="knot">

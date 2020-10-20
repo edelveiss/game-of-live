@@ -5,6 +5,9 @@ p {
   text-align: left;
   font-size: 1.1rem;
 }
+.themed-container {
+  width: 80%;
+}
 .ul-rules {
   text-align: left;
   font-size: 1.1rem;
@@ -90,6 +93,7 @@ span {
 
 .description {
   padding-left: 0;
+  margin-left: 0.5rem;
 }
 
 .smallGrid {
@@ -182,7 +186,11 @@ i:hover {
   margin-right: 2rem;
   padding-bottom: 1rem;
 }
-
+@media only screen and (max-width: 1500px) {
+  .themed-container {
+    width: 100%;
+  }
+}
 @media only screen and (max-width: 800px) {
   .themed-container {
     width: 90%;
