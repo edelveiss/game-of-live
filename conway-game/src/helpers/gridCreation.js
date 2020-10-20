@@ -9,6 +9,7 @@ import {
   queen,
   spaceShips,
   pulsarGen,
+  breed3,
   //------------------grid size constants-------------------------------------
   SMALL_ROW_NUMBER,
   SMALL_COL_NUMBER,
@@ -33,7 +34,9 @@ export const createEmptyGrid = (rows, cols) => {
 export const createRandomGrid = (rows, cols) => {
   const arr = [];
   for (let i = 0; i < rows; i++) {
-    arr.push(Array.from(Array(cols), () => (Math.random() > 0.7 ? 1 : 0)));
+    arr.push(
+      Array.from(Array(cols), () => (Math.round(Math.random()) > 0.7 ? 1 : 0))
+    );
   }
 
   return arr;
@@ -103,6 +106,16 @@ export const generateExampleGrid = (example, rowNumber, colNumber) => {
     //------------------breed-------------------
     case "breed": {
       breed.map(
+        (element) =>
+          (exampleGrid[element.x + parseInt(rowNumber / 2)][
+            element.y + parseInt(colNumber / 3 + 3)
+          ] = 1)
+      );
+      break;
+    }
+    //------------------breed3-------------------
+    case "breed3": {
+      breed3.map(
         (element) =>
           (exampleGrid[element.x + parseInt(rowNumber / 2)][
             element.y + parseInt(colNumber / 3)
