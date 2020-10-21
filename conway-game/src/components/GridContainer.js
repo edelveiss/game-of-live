@@ -1,3 +1,4 @@
+// @ts-ignore
 import React, { useState, useRef, useEffect } from "react";
 import produce from "immer";
 import { Container, Row, Col } from "reactstrap";
